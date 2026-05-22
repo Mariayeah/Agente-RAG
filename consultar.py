@@ -17,7 +17,9 @@ EMBED_MODEL = "nomic-embed-text" # Modelo de embeddings obligatorio
 def inicializar_vector_store():
     # Iniciamos ChromaDB en memoria (para persistencia en disco se usaría PersistentClient)
     client = chromadb.Client()
-    col = client.get_or_create_collection("dni")
+    
+    # Usamos dni_v2 para forzar a ChromaDB a crear una colección nueva con los chunks mejorados
+    col = client.get_or_create_collection("dni_v2")
     
     # Si la colección ya tiene documentos, no volvemos a procesarlos
     if col.count() > 0:
@@ -33,8 +35,8 @@ def inicializar_vector_store():
     for path in sorted(base_path.glob("*.txt")):
         docs.append({"name": path.name, "text": path.read_text(encoding="utf-8")})
         
-    # Chunking: dividimos los textos en fragmentos de 500 caracteres con 100 de solapamiento
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
+    # Chunking Mejorado: fragmentos más grandes (1000) para no cortar las preguntas y respuestas
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=250)
     chunks = []
     for doc in docs:
         for i, c in enumerate(splitter.split_text(doc["text"])):
