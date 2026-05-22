@@ -1,70 +1,64 @@
-# scripts/build_index.py
-import os
+#!/usr/bin/env python3
+"""Script de inicialización de la base de conocimientos (Pipeline Offline).
+
+Importa la configuración oficial del paquete y ejecuta de manera secuencial 
+las fases de carga del corpus, fragmentación semántica (chunking) y construcción 
+del índice persistente en ChromaDB aplicando la similitud del coseno.
+"""
+
+from __future__ import annotations
+
+import sys
 from pathlib import Path
-import requests
-import chromadb
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from dotenv import load_dotenv
+repo_root = Path(__file__).resolve().parents[1]
+sys.path.append(str(repo_root / "src"))
 
-# 1. Cargar las variables de entorno del archivo .env que creamos
-load_dotenv()
+# Ahora ya puedes importar vuestros módulos sin errores
+from agente_rag.config import SETTINGS
+from agente_rag.chunker import load_corpus, split_documents
+from agente_rag.retriever import build_index
 
-OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api")
-EMBED_MODEL = os.environ.get("EMBED_MODEL", "nomic-embed-text")
-CHROMA_PATH = os.environ.get("CHROMA_PATH", "./data/chroma")
-COLLECTION_NAME = os.environ.get("COLLECTION_NAME", "dni_valencia")
 
-def build_vector_store():
-    # 2. Cargar el corpus de la asociación DNI
-    print("Cargando documentos de la asociación DNI...")
-    docs = []
-    corpus_path = Path("base conocimiento")
+def main() -> int:
+    print("==================================================================")
+    print("🚀  INICIANDO PIPELINE DE INGESTA AUTOMÁTICA — ASISTENTE DNI VALENCIA")
+    print("==================================================================")
     
-    if not corpus_path.exists():
-        print("❌ Error: No se encuentra la carpeta 'base conocimiento'.")
-        return
+    try:
+        # 1. Fase de Carga: Lee los 16 archivos .txt desde la ruta configurada dinámicamente
+        print(f"📁 Cargando documentos desde: '{SETTINGS.corpus_dir.name}/'...")
+        documentos = load_corpus(SETTINGS.corpus_dir)
+        print(f"   ↳ Éxito: Se han cargado {len(documentos)} archivos de texto.")
 
-    for path in sorted(corpus_path.glob("*.txt")):
-        docs.append({"name": path.name, "text": path.read_text(encoding="utf-8")})
-    
-    # 3. Configurar el Chunking (Banda 6: Justificar tamaño y overlap en el informe)
-    # Usamos los valores recomendados por el manual técnico
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
-    
-    chunks = []
-    for doc in docs:
-        split_texts = splitter.split_text(doc["text"])
-        for i, text_chunk in enumerate(split_texts):
-            chunks.append({
-                "id": f"{doc['name']}_{i}",
-                "text": text_chunk,
-                "source": doc["name"] # Guardamos el origen para la Banda 6 (Citar fuentes)
-            })
+        # 2. Fase de Chunking: Trocea los documentos con los parámetros óptimos (1000, 250)
+        print("\n✂️  Aplicando fragmentación recursiva por caracteres...")
+        chunks = split_documents(documentos)
+        print(f"   ↳ Éxito: Corpus dividido en {len(chunks)} bloques semánticos.")
+        print("   ↳ Parámetros de diseño del equipo -> Chunk Size: 1000 | Overlap: 250")
 
-    # 4. Conectar con ChromaDB de forma PERSISTENTE en disco (Evita borrar los datos)
-    chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
-    collection = chroma_client.get_or_create_collection(name=COLLECTION_NAME)
-
-    # 5. Generar Embeddings e Indexar en la Base de Datos
-    print(f"Indexando {len(chunks)} fragmentos en ChromaDB utilizando {EMBED_MODEL}...")
-    
-    for ch in chunks:
-        # Llamada a Ollama local para vectorizar el texto
-        response = requests.post(
-            f"{OLLAMA_URL}/embeddings",
-            json={"model": EMBED_MODEL, "prompt": ch["text"]}
-        )
-        embedding = response.json()["embedding"]
+        # 3. Fase de Vectorización y Guardado Persistente en Disco
+        print(f"\n🧬 Generando embeddings vectoriales con el modelo '{SETTINGS.embed_model}'...")
+        print(f"📦 Guardando índice persistente en la colección '{SETTINGS.collection_name}'...")
+        print("⚠️  Nota: Si existía un índice residual previo, se eliminará para evitar duplicaciones.")
         
-        # Añadir a la colección guardando el texto y los metadatas de origen
-        collection.add(
-            ids=[ch["id"]],
-            embeddings=[embedding],
-            documents=[ch["text"]],
-            metadatas=[{"source": ch["source"]}] # Clave para poder citar el archivo después
-        )
-    
-    print("¡Base de conocimientos indexada con éxito y guardada en disco! 🎉")
+        # Invocamos la función del retriever físico que fuerza la métrica coseno
+        total_indexados = build_index(chunks)
+        
+        print("\n==================================================================")
+        print(f"🎉 ¡Pipeline completado! {total_indexados} fragmentos guardados en disco física y limpiamente.")
+        print(f"📁 Ruta de la base de datos: {SETTINGS.chroma_path}")
+        print("==================================================================")
+        return 0
+
+    except FileNotFoundError as e:
+        print(f"\n❌ Error de inicialización: {e}", file=sys.stderr)
+        print("💡 Por favor, comprueba que la carpeta de documentos de la asociación existe en la raíz.", file=sys.stderr)
+        return 1
+        
+    except Exception as e:
+        print(f"\n❌ Fallo crítico durante el proceso de indexación: {e}", file=sys.stderr)
+        return 2
+
 
 if __name__ == "__main__":
-    build_vector_store()
+    sys.exit(main())
