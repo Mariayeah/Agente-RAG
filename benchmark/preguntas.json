@@ -2,26 +2,31 @@
   {
     "id": 1,
     "tipo": "factual directa",
-    "pregunta": "¿Qué es DNI?"
+    "pregunta": "¿Qué es DNI?",
+    "respuesta_esperada": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema 'PARA. MIRA. AYUDA'. Realizan proyectos sociales como desayunos solidarios, actividades con ancianos (RESIS) y refuerzo escolar (COLES)."
   },
   {
     "id": 2,
     "tipo": "logistica",
-    "pregunta": "¿Cómo me apunto a los desayunos solidarios?"
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "respuesta_esperada": "La actividad se realiza los sábados. El miércoles anterior se publica un formulario de inscripción por la comunidad de WhatsApp y redes sociales que debes rellenar."
   },
   {
     "id": 3,
     "tipo": "logistica",
-    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?"
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "respuesta_esperada": "De los gastos de gasolina se encarga la propia asociación."
   },
   {
     "id": 4,
     "tipo": "sintesis",
-    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?"
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "respuesta_esperada": "RESIS se enfoca en hacer compañía y conversar con personas mayores en residencias para combatir la soledad. COLES se centra en dar refuerzo escolar y apoyo académico a niños y niñas en situación vulnerable."
   },
   {
     "id": 5,
     "tipo": "fuera de ambito",
-    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?"
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "respuesta_esperada": "No tengo esa información en mis fuentes."
   }
 ]
