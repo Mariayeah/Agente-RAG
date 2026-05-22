@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Q01",
+    "tipo": "factual_directa",
+    "pregunta": "¿Qué es DNI y cuál es su lema?"
+  },
+  {
+    "id": "Q02",
+    "tipo": "logistica_practica",
+    "pregunta": "¿A qué hora son los desayunos solidarios?"
+  },
+  {
+    "id": "Q03",
+    "tipo": "logistica_practica",
+    "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?"
+  },
+  {
+    "id": "Q04",
+    "tipo": "factual_directa",
+    "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?"
+  },
+  {
+    "id": "Q05",
+    "tipo": "logistica_practica",
+    "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?"
+  },
+  {
+    "id": "Q06",
+    "tipo": "documentacion",
+    "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?"
+  },
+  {
+    "id": "Q07",
+    "tipo": "contradiccion_control",
+    "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?"
+  },
+  {
+    "id": "Q08",
+    "tipo": "sintesis_multi_doc",
+    "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?"
+  },
+  {
+    "id": "Q09",
+    "tipo": "factual_directa",
+    "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?"
+  },
+  {
+    "id": "Q10",
+    "tipo": "logistica_practica",
+    "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?"
+  },
+  {
+    "id": "Q11",
+    "tipo": "fuera_de_ambito",
+    "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?"
+  },
+  {
+    "id": "Q12",
+    "tipo": "fuera_de_ambito",
+    "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?"
+  }
+]
