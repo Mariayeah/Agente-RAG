@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "tipo": "factual directa",
+    "pregunta": "¿Qué es DNI?"
+  },
+  {
+    "id": 2,
+    "tipo": "logistica",
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?"
+  },
+  {
+    "id": 3,
+    "tipo": "logistica",
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?"
+  },
+  {
+    "id": 4,
+    "tipo": "sintesis",
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?"
+  },
+  {
+    "id": 5,
+    "tipo": "fuera de ambito",
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?"
+  }
+]

@@ -3,29 +3,31 @@
 from __future__ import annotations
 import json
 import sys
+import os
 from pathlib import Path
 import requests
 import chromadb
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from dotenv import load_dotenv
+from openai import OpenAI
 
-# Configuración de Ollama Local
+# Cargar variables de entorno (.env)
+load_dotenv()
+
+# Configuración por defecto
+SERVIDOR_LLM = "ollama_local" # Puede ser "ollama_local" o "poligpt"
 OLLAMA_URL = "http://localhost:11434/api"
-LLM_MODEL = "llama3.2:3b"  # El modelo que descargaste
-EMBED_MODEL = "nomic-embed-text" # Modelo de embeddings obligatorio
+LLM_MODEL = "llama3.2:3b"  
+EMBED_MODEL = "nomic-embed-text" 
 
 # --- 1. Inicialización y carga en ChromaDB (Fase Offline) ---
 def inicializar_vector_store():
-    # Iniciamos ChromaDB en memoria (para persistencia en disco se usaría PersistentClient)
     client = chromadb.Client()
-    
-    # Usamos dni_v2 para forzar a ChromaDB a crear una colección nueva con los chunks mejorados
     col = client.get_or_create_collection("dni_v2")
     
-    # Si la colección ya tiene documentos, no volvemos a procesarlos
     if col.count() > 0:
         return col
 
-    # Cargar los 16.txt desde la carpeta base_conocimiento
     docs = []
     base_path = Path("base conocimiento")
     if not base_path.exists():
@@ -35,22 +37,17 @@ def inicializar_vector_store():
     for path in sorted(base_path.glob("*.txt")):
         docs.append({"name": path.name, "text": path.read_text(encoding="utf-8")})
         
-    # Chunking Mejorado: fragmentos más grandes (1000) para no cortar las preguntas y respuestas
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=250)
     chunks = []
     for doc in docs:
         for i, c in enumerate(splitter.split_text(doc["text"])):
-            # Guardamos el nombre del archivo fuente en los metadatos (Para la Banda 6)
             chunks.append({"id": f"{doc['name']}_{i}", "text": c, "source": doc["name"]})
             
-    # Función auxiliar para vectorizar texto con Ollama
     def embed(text):
         r = requests.post(f"{OLLAMA_URL}/embeddings", json={"model": EMBED_MODEL, "prompt": text})
         return r.json().get("embedding", [])
 
-    # Insertamos los chunks y sus vectores en ChromaDB
     if chunks:
-        # Extraemos listas paralelas para Chroma
         ids = [ch["id"] for ch in chunks]
         textos = [ch["text"] for ch in chunks]
         metadatos = [{"source": ch["source"]} for ch in chunks]
@@ -60,7 +57,6 @@ def inicializar_vector_store():
         
     return col
 
-# Instanciamos la base de datos al cargar el módulo
 coleccion_dni = inicializar_vector_store()
 
 def embed_query(text):
@@ -71,10 +67,7 @@ def embed_query(text):
 def consultar(pregunta: str, conversation_id: str | None = None) -> dict:
     """Función obligatoria del contrato (enunciado §9, opción A)."""
     
-    # 1. Convertir la pregunta a vector
     q_emb = embed_query(pregunta)
-    
-    # 2. Buscar los 5 chunks más relevantes
     res = coleccion_dni.query(query_embeddings=[q_emb], n_results=5)
     
     documentos_recuperados = res["documents"][0] if res.get("documents") else []
@@ -82,7 +75,6 @@ def consultar(pregunta: str, conversation_id: str | None = None) -> dict:
     
     contexto = "\n\n".join(documentos_recuperados)
     
-    # 3. Construir Prompt estricto anti-alucinaciones (Para la Banda 5)
     prompt = f"""Eres un asistente de la asociación DNI. Responde SOLO usando el contexto. Si no está, di que no lo sabes.
 CONTEXTO:
 {contexto}
@@ -90,20 +82,37 @@ CONTEXTO:
 PREGUNTA: {pregunta}
 RESPUESTA:"""
 
-    # 4. Llamar al LLM local (Ollama)
-    r = requests.post(f"{OLLAMA_URL}/generate", json={
-        "model": LLM_MODEL, 
-        "prompt": prompt,
-        "stream": False,
-        "options": {"temperature": 0.2}
-    })
+    respuesta_llm = "Error de conexión."
+
+    try:
+        # Llamar al LLM dependiendo del servidor elegido
+        if SERVIDOR_LLM == "ollama_local":
+            r = requests.post(f"{OLLAMA_URL}/generate", json={
+                "model": LLM_MODEL, 
+                "prompt": prompt,
+                "stream": False,
+                "options": {"temperature": 0.2}
+            })
+            respuesta_llm = r.json().get("response", "Error de conexión con el LLM local.")
+            
+        elif SERVIDOR_LLM == "poligpt":
+            # Conexión a la API de la UPV usando la librería de OpenAI
+            client = OpenAI(
+                base_url=os.environ.get("POLIGPT_BASE_URL"),
+                api_key=os.environ.get("POLIGPT_API_KEY")
+            )
+            resp = client.chat.completions.create(
+                model=LLM_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.2
+            )
+            respuesta_llm = resp.choices[0].message.content
+            
+    except Exception as e:
+        respuesta_llm = f"Error en la generación: {str(e)}"
     
-    respuesta_llm = r.json().get("response", "Error de conexión con el LLM.")
-    
-    # 5. Extraer fuentes únicas de los metadatos (Para la Banda 6)
     fuentes = list(set([m["source"] for m in metadatos_recuperados]))
 
-    # Retornar el diccionario EXACTO que pide el contrato
     return {
         "respuesta": respuesta_llm,
         "fuentes": fuentes,
