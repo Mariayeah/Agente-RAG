@@ -2,3 +2,5 @@
 .env
 .vscode/
 GRUPO.md
+.__pycache__/
+.pyc
