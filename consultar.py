@@ -15,8 +15,9 @@ import json
 from pathlib import Path
 from dotenv import load_dotenv
 
-# 1. Carga del entorno
-load_dotenv()
+# 1. Carga del entorno (con ruta explícita a la raíz)
+repo_root = Path(__file__).resolve().parent
+load_dotenv(dotenv_path=repo_root / ".env")
 
 # 2. Inyección dinámica del path para localizar src/
 repo_root = Path(__file__).resolve().parent
@@ -38,14 +39,15 @@ def consultar(pregunta: str, conversation_id: str | None = None) -> dict:
     Lee dinámicamente el estado de las variables globales del módulo para 
     enrutar la petición al modelo correcto de forma transparente.
     """
-    # Si detectamos que el script externo configuró "poligpt" de forma manual
-    # pero el modelo no incluye palabras clave remotas, mapeamos el alias dinámico
     alias_ejecucion = LLM_MODEL
-    if SERVIDOR_LLM == "poligpt" and LLM_MODEL == "poligpt":
-        alias_ejecucion = "gpt-4o-mini"  # Fallback seguro para PoliGPT
         
-    # Delegación en el orquestador modular pasando el modelo activo al vuelo
-    return answer(pregunta, model=alias_ejecucion, conversation_id=conversation_id)
+    # Delegación en el orquestador modular pasando el modelo y servidor al vuelo
+    return answer(
+        pregunta, 
+        model=alias_ejecucion, 
+        servidor=SERVIDOR_LLM,
+        conversation_id=conversation_id
+    )
 
 
 def _main(argv: list[str]) -> int:

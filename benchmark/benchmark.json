@@ -4,307 +4,303 @@
     "pregunta": "¿Qué es DNI?",
     "modelo": "gemma3:4b",
     "servidor": "ollama_local",
-    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES).",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA”. Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES). Nuestra misión es acompañar a quien lo necesita con empatía y acción directa.\nfuentes: [08_preguntas_basicas.txt]",
     "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
       "08_preguntas_basicas.txt",
-      "04_filosofia_dni.txt"
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt"
     ],
-    "latencia_segundos": 5.46,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 8.08,
+    "tokens_entrada": 1026,
+    "tokens_salida": 102
   },
   {
     "pregunta_id": 2,
     "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
     "modelo": "gemma3:4b",
     "servidor": "ollama_local",
-    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
+    "respuesta": "¡Hola! Para apuntarte a los desayunos solidarios, la actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirte.\n\nfuentes: [01_faq_dni.txt]",
     "fuentes_citadas": [
-      "07_desayunos_logistica.txt",
-      "01_faq_dni.txt"
+      "01_faq_dni.txt",
+      "07_desayunos_logistica.txt"
     ],
-    "latencia_segundos": 1.7,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.98,
+    "tokens_entrada": 1313,
+    "tokens_salida": 62
   },
   {
     "pregunta_id": 3,
     "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
     "modelo": "gemma3:4b",
     "servidor": "ollama_local",
-    "respuesta": "De la gasolina se encarga la asociación.",
+    "respuesta": "De la gasolina se encarga la asociación. fuentes: [06_coles_refuerzo.txt]",
     "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
       "01_faq_dni.txt",
+      "06_coles_refuerzo.txt",
       "10_proyectos.txt"
     ],
-    "latencia_segundos": 1.28,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.12,
+    "tokens_entrada": 1420,
+    "tokens_salida": 24
   },
   {
     "pregunta_id": 4,
     "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
     "modelo": "gemma3:4b",
     "servidor": "ollama_local",
-    "respuesta": "Los proyectos de RESIS y COLES se diferencian en que los de RESIS permiten crear vínculos más profundos con abuelitos en residencias, mientras que los de COLES ayudan a niños en situación vulnerable en una biblioteca tutorizada.",
+    "respuesta": "Los proyectos de RESIS y COLES se diferencian en que los de RESIS consisten en acompañar a ancianos en residencias, mientras que los de COLES consisten en ayudar a niños en situación vulnerable en una biblioteca tutorizada. Fuentes: [10_proyectos.txt]",
     "fuentes_citadas": [
       "10_proyectos.txt",
-      "04_filosofia_dni.txt",
-      "09_como_participar.txt",
-      "15_desayunos_100_preguntas.txt"
-    ],
-    "latencia_segundos": 1.94,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 5,
-    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
-    "modelo": "gemma3:4b",
-    "servidor": "ollama_local",
-    "respuesta": "No lo sabes.",
-    "fuentes_citadas": [
-      "14_impacto_social.txt",
-      "06_coles_refuerzo.txt",
-      "04_filosofia_dni.txt",
       "15_desayunos_100_preguntas.txt",
-      "08_preguntas_basicas.txt"
-    ],
-    "latencia_segundos": 1.12,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 1,
-    "pregunta": "¿Qué es DNI?",
-    "modelo": "llama3.2:3b",
-    "servidor": "ollama_local",
-    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\".",
-    "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
-      "08_preguntas_basicas.txt",
+      "09_como_participar.txt",
       "04_filosofia_dni.txt"
     ],
-    "latencia_segundos": 4.72,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 2,
-    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
-    "modelo": "llama3.2:3b",
-    "servidor": "ollama_local",
-    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
-    "fuentes_citadas": [
-      "07_desayunos_logistica.txt",
-      "01_faq_dni.txt"
-    ],
-    "latencia_segundos": 2.2,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 3,
-    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
-    "modelo": "llama3.2:3b",
-    "servidor": "ollama_local",
-    "respuesta": "La asociación DNI paga la gasolina del refuerzo escolar.",
-    "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
-      "01_faq_dni.txt",
-      "10_proyectos.txt"
-    ],
-    "latencia_segundos": 0.9,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 4,
-    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
-    "modelo": "llama3.2:3b",
-    "servidor": "ollama_local",
-    "respuesta": "No lo sabes.",
-    "fuentes_citadas": [
-      "10_proyectos.txt",
-      "04_filosofia_dni.txt",
-      "09_como_participar.txt",
-      "15_desayunos_100_preguntas.txt"
-    ],
-    "latencia_segundos": 0.73,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.77,
+    "tokens_entrada": 1226,
+    "tokens_salida": 63
   },
   {
     "pregunta_id": 5,
     "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "No tengo esa información en mis fuentes.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "15_desayunos_100_preguntas.txt",
+      "14_impacto_social.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.84,
+    "tokens_entrada": 1281,
+    "tokens_salida": 9
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
     "modelo": "llama3.2:3b",
     "servidor": "ollama_local",
-    "respuesta": "Lo siento, pero no tengo información sobre el precio del alquiler de un piso de estudiantes en Valencia. La respuesta anterior no era relevante para la pregunta.",
-    "fuentes_citadas": [
-      "14_impacto_social.txt",
-      "06_coles_refuerzo.txt",
-      "04_filosofia_dni.txt",
-      "15_desayunos_100_preguntas.txt",
-      "08_preguntas_basicas.txt"
-    ],
-    "latencia_segundos": 1.17,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 1,
-    "pregunta": "¿Qué es DNI?",
-    "modelo": "poligpt",
-    "servidor": "poligpt",
-    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema **“PARA. MIRA. AYUDA”**. Somos más de 400 voluntarios activos que desarrollan proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES), con la misión de acompañar a quien lo necesita mediante empatía y acción directa.",
-    "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
-      "08_preguntas_basicas.txt",
-      "04_filosofia_dni.txt"
-    ],
-    "latencia_segundos": 3.9,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 2,
-    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
-    "modelo": "poligpt",
-    "servidor": "poligpt",
-    "respuesta": "Para apuntarte, revisa la comunidad de WhatsApp o nuestras redes sociales: si hay desayuno ese sábado, el miércoles se publica un formulario de inscripción. Sólo tienes que completarlo para confirmar tu participación.",
-    "fuentes_citadas": [
-      "07_desayunos_logistica.txt",
-      "01_faq_dni.txt"
-    ],
-    "latencia_segundos": 2.08,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 3,
-    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
-    "modelo": "poligpt",
-    "servidor": "poligpt",
-    "respuesta": "De la gasolina se encarga la asociación.",
-    "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
-      "01_faq_dni.txt",
-      "10_proyectos.txt"
-    ],
-    "latencia_segundos": 1.2,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 4,
-    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
-    "modelo": "poligpt",
-    "servidor": "poligpt",
-    "respuesta": "Los proyectos **RESIS** y **COLES** son muy diferentes en cuanto a su objetivo, público y forma de actuar:\n\n| Aspecto | RESIS (Charlas con Abuelitos) | COLES (Refuerzo Escolar) |\n|---------|------------------------------|--------------------------|\n| **Público al que se dirige** | Personas mayores que viven en residencias (ej. residencia L'Acollida). | Niños y niñas en situación vulnerable que necesitan apoyo académico. |\n| **Tipo de actividad** | Conversaciones, compañía y escucha activa; se trata de crear vínculos emocionales y romper la soledad. | Tutorías y refuerzo escolar en una biblioteca, ayudando con tareas, lecturas y otras materias. |\n| **Lugar habitual** | Residencias de ancianos (ej. L'Acollida). | Biblioteca tutorizada donde se organizan los grupos de estudio. |\n| **Horario típico** | Miércoles de 17:30 a 18:30 pm. | Horarios flexibles según la disponibilidad de la biblioteca y los voluntarios, centrados en sesiones de estudio. |\n| **Objetivo principal** | Acompañar, conversar y ofrecer apoyo emocional a los mayores. | Mejorar el rendimiento escolar y ofrecer apoyo educativo a niños en riesgo. |\n| **Duración de la intervención** | Aproximadamente 1 hora por sesión. | Sesiones de varias horas según la necesidad del grupo y la planificación del proyecto. |\n\nEn resumen, **RESIS** se centra en la compañía y el diálogo con personas mayores, mientras que **COLES** se enfoca en la ayuda académica y el refuerzo educativo para niños. Cada uno aporta una forma distinta de solidaridad según la etapa de vida y las necesidades de los beneficiarios.",
-    "fuentes_citadas": [
-      "10_proyectos.txt",
-      "04_filosofia_dni.txt",
-      "09_como_participar.txt",
-      "15_desayunos_100_preguntas.txt"
-    ],
-    "latencia_segundos": 6.07,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 5,
-    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
-    "modelo": "poligpt",
-    "servidor": "poligpt",
-    "respuesta": "No lo sé.",
-    "fuentes_citadas": [
-      "14_impacto_social.txt",
-      "06_coles_refuerzo.txt",
-      "04_filosofia_dni.txt",
-      "15_desayunos_100_preguntas.txt",
-      "08_preguntas_basicas.txt"
-    ],
-    "latencia_segundos": 1.17,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
-  },
-  {
-    "pregunta_id": 1,
-    "pregunta": "¿Qué es DNI?",
-    "modelo": "gemma3:27b",
-    "servidor": "poligpt",
     "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES). Nuestra misión es acompañar a quien lo necesita con empatía y acción directa.",
     "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
       "08_preguntas_basicas.txt",
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 7.07,
+    "tokens_entrada": 1159,
+    "tokens_salida": 102
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "Según el archivo \"07_desayunos_logistica.txt\", para apuntarte a los desayunos solidarios, debes:\n\n1. Ver si ese sábado hay actividad publicada por la comunidad de WhatsApp y por redes sociales.\n2. Si hay actividad, inscribirte en el formulario que se publica.\n\nNo tengo esa información en mis fuentes sobre horario o punto de encuentro específico para los desayunos solidarios.",
+    "fuentes_citadas": [
+      "01_faq_dni.txt",
+      "07_desayunos_logistica.txt"
+    ],
+    "latencia_segundos": 3.5,
+    "tokens_entrada": 1436,
+    "tokens_salida": 93
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "Según el archivo \"06_coles_refuerzo.txt\", es la asociación DNI la que se encarga de pagar la gasolina del refuerzo escolar.",
+    "fuentes_citadas": [
+      "01_faq_dni.txt",
+      "06_coles_refuerzo.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 1.5,
+    "tokens_entrada": 1571,
+    "tokens_salida": 37
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "¡Hola! Me alegra ayudarte con cualquier pregunta o inquietud que tengas sobre la asociación juvenil de voluntariado 'Damos Nuestra Ilusión' (DNI) de Valencia.\n\nPuedes encontrar información en los siguientes archivos:\n\n* fuentes: [\"07 desayunos logistica.txt\", \"15_desayunos_100_preguntas.txt\", \"09_como_participar.txt\", \"04_filosofia_dni.txt\"]\n\n¿En qué puedo ayudarte?",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "15_desayunos_100_preguntas.txt",
+      "09_como_participar.txt",
       "04_filosofia_dni.txt"
     ],
-    "latencia_segundos": 3.29,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.41,
+    "tokens_entrada": 1340,
+    "tokens_salida": 106
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "No tengo esa información en mis fuentes.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "15_desayunos_100_preguntas.txt",
+      "14_impacto_social.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.13,
+    "tokens_entrada": 1422,
+    "tokens_salida": 10
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema **“PARA. MIRA. AYUDA”**. Somos más de 400 voluntarios activos que llevamos a cabo proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES). Nuestra misión es acompañar a quien lo necesita con empatía y acción directa.  \n\nfuentes: [\"08_preguntas_basicas.txt\"]",
+    "fuentes_citadas": [
+      "08_preguntas_basicas.txt",
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 32.82,
+    "tokens_entrada": 1017,
+    "tokens_salida": 265
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "Para apuntarte a los desayunos solidarios debes esperar a que, si ese sábado hay actividad, el miércoles se publique en la comunidad de WhatsApp y en las redes sociales un formulario de inscripción.  \n\nfuentes: [\"01_faq_dni.txt\", \"07_desayunos_logistica.txt\"]",
+    "fuentes_citadas": [
+      "01_faq_dni.txt",
+      "07_desayunos_logistica.txt"
+    ],
+    "latencia_segundos": 61.04,
+    "tokens_entrada": 1327,
+    "tokens_salida": 158
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "La asociación se encarga de pagar la gasolina del refuerzo escolar. fuentes: [\"06_coles_refuerzo.txt\"]",
+    "fuentes_citadas": [
+      "01_faq_dni.txt",
+      "06_coles_refuerzo.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 114.27,
+    "tokens_entrada": 1388,
+    "tokens_salida": 192
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "Los proyectos RESIS y COLES son diferentes en varios aspectos:\n\n* **Público al que se dirige**  \n  * **RESIS (Charlas con Abuelitos)**: está pensado para acompañar a personas mayores que viven en residencias, como la residencia L'Acollida.  \n  * **COLES (Refuerzo Escolar)**: está orientado a niños y niñas en situación vulnerable que necesitan apoyo académico.\n\n* **Tipo de actividad**  \n  * **RESIS**: se trata de charlas y compañía, con el objetivo de romper la soledad y ofrecer conversación y afecto.  \n  * **COLES**: consiste en refuerzo escolar y tutorías en una biblioteca, ayudando a los niños con sus tareas y estudios.\n\n* **Entorno y horario**  \n  * **RESIS**: se lleva a cabo en la residencia L'Acollida, los miércoles de 5:30 pm a 6:30 pm.  \n  * **COLES**: se desarrolla en una biblioteca tutorizada, con horarios que se adaptan a la disponibilidad de los niños y voluntarios.\n\n* **Objetivo principal**  \n  * **RESIS**: crear vínculos emocionales y ofrecer compañía a los mayores.  \n  * **COLES**: mejorar el rendimiento escolar y ofrecer apoyo educativo a los niños.\n\nfuentes: [\"04_filosofia_dni.txt\",\"10_proyectos.txt\"]",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "15_desayunos_100_preguntas.txt",
+      "09_como_participar.txt",
+      "04_filosofia_dni.txt"
+    ],
+    "latencia_segundos": 136.39,
+    "tokens_entrada": 1222,
+    "tokens_salida": 540
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "No tengo esa información en mis fuentes.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "15_desayunos_100_preguntas.txt",
+      "14_impacto_social.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 118.21,
+    "tokens_entrada": 1261,
+    "tokens_salida": 166
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES). Nuestra misión es acompañar a quien lo necesita con empatía y acción directa. fuentes: [\"08_preguntas_basicas.txt\"]",
+    "fuentes_citadas": [
+      "08_preguntas_basicas.txt",
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 4.42,
+    "tokens_entrada": 1026,
+    "tokens_salida": 100
   },
   {
     "pregunta_id": 2,
     "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
     "modelo": "gemma3:27b",
     "servidor": "poligpt",
-    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
+    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse. fuentes: [\"01_faq_dni.txt\", \"07_desayunos_logistica.txt\"]",
     "fuentes_citadas": [
-      "07_desayunos_logistica.txt",
-      "01_faq_dni.txt"
+      "01_faq_dni.txt",
+      "07_desayunos_logistica.txt"
     ],
-    "latencia_segundos": 2.03,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.97,
+    "tokens_entrada": 1313,
+    "tokens_salida": 61
   },
   {
     "pregunta_id": 3,
     "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
     "modelo": "gemma3:27b",
     "servidor": "poligpt",
-    "respuesta": "De la gasolina se encarga la asociación.",
+    "respuesta": "De la gasolina se encarga la asociación. fuentes: [\"06_coles_refuerzo.txt\"]",
     "fuentes_citadas": [
-      "06_coles_refuerzo.txt",
       "01_faq_dni.txt",
+      "06_coles_refuerzo.txt",
       "10_proyectos.txt"
     ],
-    "latencia_segundos": 1.61,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.51,
+    "tokens_entrada": 1420,
+    "tokens_salida": 24
   },
   {
     "pregunta_id": 4,
     "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
     "modelo": "gemma3:27b",
     "servidor": "poligpt",
-    "respuesta": "RESIS (Charlas con Abuelitos) permite crear vínculos más profundos si puedes ir regularmente, mientras que COLES (Refuerzo Escolar) es ayudar a niños en situación vulnerable. RESIS se realiza los miércoles de 5:30-6:30pm en la residencia L'Acollida y COLES en una biblioteca tutorizada.",
+    "respuesta": "Los desayunos son más esporádicos (ideales si tienes poco tiempo), mientras que los abuelitos (RESIS) permiten crear vínculos más profundos si puedes ir regularmente. COLES es refuerzo escolar para niños en situación vulnerable. fuentes: [\"10_proyectos.txt\"]",
     "fuentes_citadas": [
       "10_proyectos.txt",
-      "04_filosofia_dni.txt",
+      "15_desayunos_100_preguntas.txt",
       "09_como_participar.txt",
-      "15_desayunos_100_preguntas.txt"
+      "04_filosofia_dni.txt"
     ],
-    "latencia_segundos": 2.6,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.93,
+    "tokens_entrada": 1226,
+    "tokens_salida": 62
   },
   {
     "pregunta_id": 5,
     "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
     "modelo": "gemma3:27b",
     "servidor": "poligpt",
-    "respuesta": "No lo sé.",
+    "respuesta": "No tengo esa información en mis fuentes.",
     "fuentes_citadas": [
-      "14_impacto_social.txt",
       "06_coles_refuerzo.txt",
-      "04_filosofia_dni.txt",
       "15_desayunos_100_preguntas.txt",
+      "14_impacto_social.txt",
       "08_preguntas_basicas.txt"
     ],
-    "latencia_segundos": 1.53,
-    "tokens_entrada": 0,
-    "tokens_salida": 0
+    "latencia_segundos": 2.08,
+    "tokens_entrada": 1281,
+    "tokens_salida": 10
   }
 ]

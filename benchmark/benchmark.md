@@ -1,61 +1,49 @@
 # Resultados del Benchmark de Modelos — Asistente RAG DNI
 
-Este documento presenta la evaluación y comparación cuantitativa y cualitativa de cuatro modelos de lenguaje (dos locales a través de Ollama y dos remotos a través de la API de PoliGPT) respondiendo a un set fijo de preguntas sobre la asociación DNI (Damos Nuestra Ilusión). 
-
-El objetivo de este benchmark es analizar el rendimiento de cada modelo en términos de latencia, precisión y adherencia a las instrucciones anti-alucinación, manteniendo el resto de parámetros del pipeline RAG constantes (chunk_size = 1000, chunk_overlap = 250, k = 5).
+A continuación se presenta el documento con la evaluación comparativa actualizada basándose en los últimos datos de ejecución registrados en el sistema.
 
 ---
 
 ## 1. Tabla Resumen de Métricas Crudas
 
-A continuación se tabulan las métricas obtenidas durante la ejecución automática del script `benchmark.py`:
-
-| ID | Pregunta | Modelo | Servidor | Latencia (s) | Fuentes Citadas | Calidad Subjetiva (Acierto/Fallo) |
-| :---: | :--- | :--- | :--- | :---: | :--- | :--- |
-| **1** | ¿Qué es DNI? | gemma3:4b | ollama_local | 5.46 | 3 | ✅ **Acierto** (Respuesta completa y fiel) |
-| **1** | ¿Qué es DNI? | llama3.2:3b | ollama_local | 4.72 | 3 | ✅ **Acierto** (Breve pero correcta) |
-| **1** | ¿Qué es DNI? | poligpt | poligpt | 3.90 | 3 | ✅ **Acierto** (Excelente formato con negritas) |
-| **1** | ¿Qué es DNI? | gemma3:27b | poligpt | 3.29 | 3 | ✅ **Acierto** (Muy completa y estructurada) |
-| **2** | ¿Cómo me apunto a los desayunos... ? | gemma3:4b | ollama_local | 1.70 | 2 | ✅ **Acierto** (Precisión exacta con el FAQ) |
-| **2** | ¿Cómo me apunto a los desayunos... ? | llama3.2:3b | ollama_local | 2.20 | 2 | ✅ **Acierto** (Idéntica al FAQ oficial) |
-| **2** | ¿Cómo me apunto a los desayunos... ? | poligpt | poligpt | 2.08 | 2 | ✅ **Acierto** (Redacción natural y correcta) |
-| **2** | ¿Cómo me apunto a los desayunos... ? | gemma3:27b | poligpt | 2.03 | 2 | ✅ **Acierto** (Precisión absoluta) |
-| **3** | ¿Quién paga la gasolina del refuerzo? | gemma3:4b | ollama_local | 1.28 | 3 | ✅ **Acierto** (Directa y al grano) |
-| **3** | ¿Quién paga la gasolina del refuerzo? | llama3.2:3b | ollama_local | 0.90 | 3 | ✅ **Acierto** (Formulación correcta) |
-| **3** | ¿Quién paga la gasolina del refuerzo? | poligpt | poligpt | 1.20 | 3 | ✅ **Acierto** (Fiel al contexto) |
-| **3** | ¿Quién paga la gasolina del refuerzo? | gemma3:27b | poligpt | 1.61 | 3 | ✅ **Acierto** (Fiel al contexto) |
-| **4** | ¿En qué se diferencian RESIS y COLES? | gemma3:4b | ollama_local | 1.94 | 4 | ✅ **Acierto** (Sintetiza de forma aceptable) |
-| **4** | ¿En qué se diferencian RESIS y COLES? | llama3.2:3b | ollama_local | 0.73 | 4 | ❌ **Fallo** (Insuficiencia cognitiva: dice "No lo sabes") |
-| **4** | ¿En qué se diferencian RESIS y COLES? | poligpt | poligpt | 6.07 | 4 | ⭐ **Excelente** (Genera tabla comparativa avanzada) |
-| **4** | ¿En qué se diferencian RESIS y COLES? | gemma3:27b | poligpt | 2.60 | 4 | ✅ **Acierto** (Extrae datos de horarios y lugares) |
-| **5** | ¿Cuánto cuesta el alquiler en Valencia? | gemma3:4b | ollama_local | 1.12 | 5 | ✅ **Acierto** (Rechazo estricto: "No lo sabes") |
-| **5** | ¿Cuánto cuesta el alquiler en Valencia? | llama3.2:3b | ollama_local | 1.17 | 5 | ✅ **Acierto** (Rechazo educado y contextual) |
-| **5** | ¿Cuánto cuesta el alquiler en Valencia? | poligpt | poligpt | 1.17 | 5 | ✅ **Acierto** (Rechazo estricto: "No lo sabes") |
-| **5** | ¿Cuánto cuesta el alquiler en Valencia? | gemma3:27b | poligpt | 1.53 | 5 | ✅ **Acierto** (Rechazo estricto: "No lo sabes") |
+| ID | Pregunta | Modelo | Servidor | Latencia (s) | Tokens Salida | Comportamiento Destacado |
+| :---: | :--- | :--- | :--- | :---: | :---: | :--- |
+| **1** | ¿Qué es DNI? | gemma3:4b | ollama_local | 8.08 | 102 | Respuesta completa y fiel. |
+| **1** | ¿Qué es DNI? | llama3.2:3b | ollama_local | 7.07 | 102 | Respuesta completa y fiel. |
+| **1** | ¿Qué es DNI? | poligpt | poligpt | 32.82 | 265 | Incluye formato Markdown (negritas). |
+| **1** | ¿Qué es DNI? | gemma3:27b | poligpt | 4.42 | 100 | Respuesta estructurada y precisa. |
+| **2** | ¿Cómo me apunto a los desayunos...? | gemma3:4b | ollama_local | 2.98 | 62 | Tono cercano ("¡Hola!"). |
+| **2** | ¿Cómo me apunto a los desayunos...? | llama3.2:3b | ollama_local | 3.50 | 93 | Genera una lista numerada con los pasos. |
+| **2** | ¿Cómo me apunto a los desayunos...? | poligpt | poligpt | 61.04 | 158 | Redacción correcta pero latencia alta. |
+| **2** | ¿Cómo me apunto a los desayunos...? | gemma3:27b | poligpt | 2.97 | 61 | Precisión directa y rápida. |
+| **3** | ¿Quién paga la gasolina del refuerzo? | gemma3:4b | ollama_local | 2.12 | 24 | Respuesta directa y breve. |
+| **3** | ¿Quién paga la gasolina del refuerzo? | llama3.2:3b | ollama_local | 1.50 | 37 | Referencia explícita al nombre del archivo. |
+| **3** | ¿Quién paga la gasolina del refuerzo? | poligpt | poligpt | 114.27 | 192 | Fiel al contexto pero excesivamente lento. |
+| **3** | ¿Quién paga la gasolina del refuerzo? | gemma3:27b | poligpt | 2.51 | 24 | Fiel al contexto con baja latencia. |
+| **4** | ¿En qué se diferencian RESIS y COLES? | gemma3:4b | ollama_local | 2.77 | 63 | Sintetiza la diferencia de forma directa. |
+| **4** | ¿En qué se diferencian RESIS y COLES? | llama3.2:3b | ollama_local | 2.41 | 106 | Fallo cognitivo: responde con un saludo genérico. |
+| **4** | ¿En qué se diferencian RESIS y COLES? | poligpt | poligpt | 136.39 | 540 | Desglose exhaustivo por categorías en Markdown. |
+| **4** | ¿En qué se diferencian RESIS y COLES? | gemma3:27b | poligpt | 2.93 | 62 | Extrae información clave sobre los vínculos. |
+| **5** | ¿Cuánto cuesta el alquiler en Valencia? | gemma3:4b | ollama_local | 1.84 | 9 | Rechazo estricto exitoso. |
+| **5** | ¿Cuánto cuesta el alquiler en Valencia? | llama3.2:3b | ollama_local | 1.13 | 10 | Rechazo estricto exitoso. |
+| **5** | ¿Cuánto cuesta el alquiler en Valencia? | poligpt | poligpt | 118.21 | 166 | Rechazo estricto exitoso. |
+| **5** | ¿Cuánto cuesta el alquiler en Valencia? | gemma3:27b | poligpt | 2.08 | 10 | Rechazo estricto exitoso. |
 
 ---
 
 ## 2. Interpretación de los Resultados y Hallazgos
 
-El análisis cruzado de los datos obtenidos revela patrones fundamentales sobre el comportamiento de las distintas arquitecturas de modelos:
+El análisis de los datos JSON revela variaciones muy importantes respecto a pruebas anteriores, destacando problemas de rendimiento en servidores remotos y diferencias en la capacidad de síntesis:
 
 ### A. Capacidad de Síntesis e Inferencia Compleja (Pregunta 4)
-* **Los modelos grandes dominan:** El modelo comercial de la cola `poligpt` demostró una superioridad aplastante al responder a la pregunta de síntesis multi-documento. No solo extrajo las diferencias, sino que estructuró de forma autónoma una tabla Markdown comparando públicos, actividades, horarios, lugares y objetivos.
-* **El colapso de Llama 3.2 (3b):** Al ser un modelo extremadamente compacto, se vio superado por el volumen de contexto inyectado (5 chunks de 1000 caracteres). En lugar de procesar la diferencia, prefirió acogerse a la cláusula de seguridad del prompt y responder `"No lo sabes."`. Esto demuestra una limitación en su ventana de atención efectiva para tareas de razonamiento multi-doc.
-* **Gemma 3 (4b) como "Sweet Spot" local:** A pesar de correr en local, superó a Llama logrando redactar una síntesis fluida que explicaba correctamente el enfoque hacia abuelitos (RESIS) frente al apoyo infantil (COLES).
+* **Profundidad vs Rendimiento:** El modelo `poligpt` generó la respuesta más elaborada (540 tokens de salida), dividiendo las diferencias entre RESIS y COLES por público, actividad, entorno y objetivo. Sin embargo, el modelo `llama3.2:3b` falló en la tarea de síntesis, devolviendo un saludo genérico ("¡Hola! Me alegra ayudarte...") y una lista de archivos sin contestar a la pregunta.
+* **El equilibrio local:** `gemma3:4b` logró responder correctamente sintetizando que RESIS es para ancianos y COLES para niños en situación vulnerable utilizando solo 63 tokens de salida.
 
 ### B. Adherencia al Prompt y Anti-Alucinación (Pregunta 5)
-* Todos los modelos pasaron con nota la prueba de control fuera de ámbito (pregunta sobre el precio de los alquileres). Al no estar la información en el contexto de los 16 archivos `.txt`, ninguno inventó datos ficticios.
-* Se aprecia una marcada diferencia de estilo: `gemma3:4b`, `gemma3:27b` y `poligpt` aplicaron una **obediencia literal robótica** devolviendo exactamente el token indicado en el prompt (`"No lo sabes."`), mientras que `llama3.2:3b` mostró un comportamiento más natural y conversacional para denegar la respuesta.
+* Todos los modelos sin excepción (gemma3:4b, llama3.2:3b, poligpt y gemma3:27b) pasaron la prueba de control.
+* Ante la pregunta sobre el alquiler, los cuatro modelos generaron exactamente la misma cadena de texto de rechazo: "No tengo esa información en mis fuentes.".
 
-### C. Análisis de Latencia y Eficiencia
-* **Estabilidad remota:** Las llamadas a través de PoliGPT mostraron una latencia muy controlada (entre 1.1s y 3.9s), con la única excepción de la tabla compleja generada por `poligpt` (6.07s), totalmente justificada por la cantidad de tokens de salida generados.
-* **Fluctuación local:** Las respuestas en local dependieron de la complejidad de la tarea. La inicialización de la consulta visual de Gemma 3 tardó 5.46s (cold start de carga en VRAM) pero se estabilizó inmediatamente en torno a 1.1s - 1.9s para el resto de preguntas.
-
----
-
-## 3. Conclusión y Elección de Modelo para el Grupo
-
-Para la entrega definitiva del Asistente DNI, nuestro equipo ha decidido seleccionar **`gemma3:27b` a través de PoliGPT** como modelo principal de producción (siempre que la red de la UPV esté disponible), manteniendo **`gemma3:4b` en Ollama** como el motor local obligatorio de respaldo.
-
-**Justificación:** `gemma3:27b` ofrece el equilibrio perfecto: combina la precisión quirúrgica y formato profesional de los modelos de escala comercial con una latencia de respuesta excepcionalmente baja (promedio de ~2.2 segundos), superando las limitaciones cognitivas de los modelos locales de 3b sin sacrificar la seguridad anti-alucinaciones que exige la rúbrica.
+### C. Análisis de Latencia Crítica
+* **Degradación del servidor PoliGPT:** Se observan latencias anómalas e inaceptables para un entorno de producción en el modelo `poligpt`. Los tiempos de respuesta escalaron desde 32.82 segundos en la primera consulta hasta un máximo de 136.39 segundos en la cuarta pregunta. Incluso para rechazar la pregunta 5, requirió 118.21 segundos.
+* **Rendimiento óptimo de Gemma3:27b:** A pesar de ejecutarse también en el servidor remoto `poligpt`, el modelo `gemma3:27b` mantuvo una estabilidad excelente, con latencias comprendidas entre 2.08 y 4.42 segundos.
+* **Modelos locales:** `llama3.2:3b` registró el tiempo de respuesta más rápido de toda la prueba con 1.13 segundos en la pregunta 5.

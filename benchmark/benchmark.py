@@ -14,8 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import consultar 
 
-ARCHIVO_PREGUNTAS = Path("benchmark/preguntas.json")
-ARCHIVO_RESULTADOS = Path("benchmark/benchmark.json")
+ARCHIVO_PREGUNTAS = Path(__file__).resolve().parent / "preguntas.json"
+ARCHIVO_RESULTADOS = Path(__file__).resolve().parent / "benchmark.json"
 
 # Los 4 modelos que pide la rúbrica (Banda 7)
 MODELOS = [
@@ -68,8 +68,8 @@ def ejecutar_benchmark():
                     "respuesta": respuesta_agente["respuesta"],
                     "fuentes_citadas": respuesta_agente["fuentes"],
                     "latencia_segundos": latencia,
-                    "tokens_entrada": 0, 
-                    "tokens_salida": 0   
+                    "tokens_entrada": respuesta_agente["metricas"]["prompt_tokens"], 
+                    "tokens_salida": respuesta_agente["metricas"]["output_tokens"]   
                 }
                 resultados_totales.append(resultado)
                 print(f"  ✅ Respondido en {latencia}s")

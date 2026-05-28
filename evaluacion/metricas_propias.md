@@ -1,41 +1,37 @@
-# Evaluación de Métricas Propias - Asistente RAG DNI
+# Resultados de Evaluación RAGAs — Asistente RAG DNI
 
-En cumplimiento con los requisitos de la Banda 8, se han diseñado, justificado y aplicado dos métricas de evaluación propias para complementar el análisis realizado con el framework RAGAs. 
-
-Estas métricas abordan dos problemas críticos en sistemas RAG en producción: la fiabilidad estricta de las referencias (Trazabilidad) y la experiencia de usuario (Rendimiento).
+Este documento presenta los resultados detallados de la evaluación cuantitativa realizada con el framework RAGAs sobre el conjunto de validación del Asistente DNI, utilizando el modelo `poligpt` como juez.
 
 ---
 
-## 1. Tasa de Alucinación de Fuentes (Source Hallucination Rate)
+## 1. Resumen Global de Métricas
 
-**Concepto:** Mide el porcentaje de fuentes citadas por el LLM en su respuesta final que *realmente* pertenecen al conjunto de documentos (`chunks`) recuperados por el Retriever para esa consulta en específico.
+Los promedios calculados para todo el conjunto de preguntas demuestran un sistema robusto, destacando especialmente en su capacidad para no inventar información:
 
-**Fórmula de Cálculo:** `SHR = (Fuentes Citadas Válidas / Total de Fuentes Citadas por el LLM) * 100`
-* *Fuentes Citadas Válidas:* Archivos mencionados en la clave `"fuentes"` de la respuesta que están verdaderamente presentes en los metadatos de los chunks inyectados en el prompt.
-* *Nota:* Si el modelo cita una fuente que no está en el corpus (o no se le pasó en esa consulta), el porcentaje bajará drásticamente.
-
-**Justificación para el caso DNI:** La rúbrica exige explícitamente que "si un archivo no aparece en el contexto recuperado, no puede citarse". Los LLMs instruidos a veces intentan complacer al usuario inventando referencias plausibles que suenan reales pero que el retriever no ha encontrado. Esta métrica audita estrictamente la cadena de custodia de la información, asegurando que el modelo no rompe el contrato de veracidad y cita exactamente lo que ha leído.
+*   **Faithfulness (Fidelidad):** 0.8278
+*   **Answer Relevancy (Relevancia de Respuesta):** 0.5876
+*   **Context Precision (Precisión de Contexto):** 0.5650
+*   **Context Recall (Recuperación de Contexto):** 0.8000
 
 ---
 
-## 2. Puntuación de Viabilidad por Latencia (Latency Usability Score)
+## 2. Detalle de Evaluación por Pregunta
 
-**Concepto:** Una métrica orientada a la Experiencia de Usuario (UX) que evalúa la idoneidad del modelo para un entorno de chat en tiempo real. Asigna una puntuación normalizada de 0.0 a 1.0 basada en el tiempo total de respuesta (latencia).
+| ID | Pregunta | Faithfulness | Answer Relevancy | Context Precision | Context Recall |
+| :---: | :--- | :---: | :---: | :---: | :---: |
+| **1** | ¿Qué es DNI? | 0.8889 | 0.6859 | 0.7500 | 1.0000 |
+| **2** | ¿Cómo me apunto a los desayunos solidarios? | 0.7500 | 0.6879 | 1.0000 | 1.0000 |
+| **3** | ¿Quién paga la gasolina del refuerzo escolar? | 0.5000 | 0.8012 | 0.7500 | 1.0000 |
+| **4** | ¿En qué se diferencian los proyectos de RESIS y COLES? | 1.0000 | 0.7629 | 0.3250 | 1.0000 |
+| **5** | ¿Cuánto cuesta el alquiler de un piso en Valencia? | 1.0000 | 0.0000 | 0.0000 | 0.0000 |
 
-**Umbrales y Cálculo:** * **1.0 (Óptimo):** Latencia $\le$ 2.0 segundos. (El usuario percibe fluidez inmediata).
-* **0.0 (Inaceptable):** Latencia $\ge$ 6.0 segundos. (El usuario percibe que el bot ha fallado o es desesperantemente lento).
-* **Degradación lineal:** Para latencias entre 2.0 y 6.0 segundos, la puntuación disminuye linealmente.  
-  `LUS = 1.0 - ((Latencia - 2.0) / 4.0)`
+---
 
-**Justificación para el caso DNI:** Durante el *benchmark* empírico de la Banda 7, se observaron disparidades considerables: los modelos remotos de PoliGPT mostraron estabilidad, mientras que los modelos locales sufrieron fuertes latencias por carga en memoria (*cold start*), llegando a demorar hasta 22 segundos. Un sistema RAG excelente no solo debe ser preciso (evaluado por RAGAs), sino también operativamente viable. De nada sirve un modelo que alcance un 1.0 en `faithfulness` si el voluntario de la asociación DNI debe interrumpir su trabajo para esperar la respuesta.
+## 3. Análisis de Resultados
 
-## 3. Resumen de la Evaluación Cuantitativa (RAGAs)
+El análisis detallado de las métricas revela el siguiente comportamiento en el pipeline del Agente:
 
-La evaluación automática mediante el framework RAGAs (utilizando el modelo `poligpt` como juez sobre las respuestas generadas por `gemma3:27b` a través de la API de la UPV) arrojó los siguientes resultados promedio:
-
-* **Faithfulness (Fidelidad): 0.80** - Alta adherencia al contexto; el modelo evita inventar datos.
-* **Context Recall (Recuperación de Contexto): 0.80** - La indexación en ChromaDB (chunks de 1000) es altamente efectiva encontrando la información requerida.
-* **Context Precision (Precisión de Contexto): 0.62** - Margen de mejora; el sistema recupera ruido junto con la señal útil.
-* **Answer Relevancy (Relevancia de Respuesta): 0.58** - El prompt restrictivo ("di que no lo sabes") provoca penalizaciones frente al juez de RAGAs, que espera respuestas más conversacionales.
-
-**Conclusión General:** El sistema es altamente confiable y seguro (alta fidelidad y recuperación), cumpliendo el objetivo principal de un RAG institucional, aunque la precisión del contexto inyectado podría afinarse con algoritmos de re-ranking.
+*   **Recuperación Perfecta en Dominio (Context Recall = 1.0):** Para todas las preguntas relacionadas con la asociación DNI (preguntas 1 a 4), el sistema de recuperación (ChromaDB) encontró exitosamente los fragmentos exactos que contenían la respuesta.
+*   **Alta Fidelidad General (Faithfulness):** El agente extrae la información de sus fuentes sin inventar datos. Destaca la Pregunta 4, donde la fidelidad es absoluta (1.0), indicando que el modelo de generación se ciñó estrictamente a los textos recuperados. El único bajón se produce en la Pregunta 3 (0.50), posiblemente debido a una excesiva síntesis de la respuesta.
+*   **Margen de mejora en Precisión de Contexto:** Aunque el sistema encuentra la información correcta (Recall), en ocasiones arrastra chunks adicionales con información irrelevante para la consulta específica (Context Precision promedio de 0.56). Un algoritmo de *re-ranking* podría mejorar esta métrica en futuras versiones.
+*   **Comportamiento Anti-Alucinación (Pregunta 5):** La pregunta trampa sobre el alquiler en Valencia obtiene un 0.0 en Relevancia, Precisión y Recall. Esto representa un **éxito total de la política del sistema**. Al rechazar responder algo fuera de sus fuentes documentales, RAGAs castiga las métricas de relevancia, pero el sistema obtiene un **1.0 en Faithfulness** por admitir correctamente que no tiene la información, garantizando cero alucinaciones.
