@@ -1,7 +1,9 @@
-"""Carga de configuración desde entorno (.env soportado vía python-dotenv).
-
-Centralizamos aquí la lectura de variables para que el resto del paquete no
-toque ``os.environ`` directamente. Adaptado para el Asistente DNI Valencia.
+"""
+================================================================================
+Módulo de Configuración Centralizada e Inferencia de Entorno
+================================================================================
+Lee de forma segura el entorno mitigando fallos por falta de variables mediante 
+un sistema de respaldos (fallbacks) optimizado para desarrollo local y remoto.
 """
 
 from __future__ import annotations

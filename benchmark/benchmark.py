@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+"""Script de evaluación automatizada (Benchmark de la Banda 7).
+
+Itera sobre el set fijo de preguntas contra los 4 modelos configurados,
+capturando de manera fidedigna las respuestas y las métricas de rendimiento.
+"""
+
 import json
 import time
 import sys

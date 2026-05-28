@@ -1,3 +1,21 @@
+"""
+================================================================================
+Módulo de Evaluación Avanzada con Framework RAGAs (Banda 8)
+================================================================================
+Orquesta la validación matemática y automatizada del sistema RAG contrastando 
+las respuestas generadas por el agente contra un conjunto de respuestas de 
+referencia (Ground Truth), utilizando la infraestructura de PoliGPT como Juez.
+
+Métricas clave evaluadas bajo el estándar moderno de RAGAs:
+- Faithfulness: Mide las alucinaciones evaluando la lealtad al contexto.
+- Answer Relevancy: Evalúa si la respuesta atiende directamente la duda.
+- Context Precision: Cuantifica la calidad del ranking del retrieval.
+- Context Recall: Verifica si se recuperó la información requerida.
+
+Garantiza la máxima estabilidad aislando la extracción de datos mediante Pandas 
+y aplicando un filtro de seguridad recursivo contra valores NaN incompatibles 
+con el volcado estructurado a JSON estándar.
+"""
 import os
 import json
 import sys
