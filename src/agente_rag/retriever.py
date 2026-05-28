@@ -64,10 +64,10 @@ def _open_collection() -> chromadb.api.models.Collection.Collection:
     return client.get_collection(SETTINGS.collection_name)
 
 
-def retrieve(question: str, *, k: int = 5) -> list[RetrievedChunk]:
+def retrieve(question: str, *, k: int = 5, servidor: str | None = None) -> list[RetrievedChunk]:
     """Top-k retrieval semántico. Aplica la fórmula ``score = 1 - distance``."""
     col = _open_collection()
-    q_emb = embed(question)
+    q_emb = embed(question, servidor=servidor)
     
     if not q_emb:
         return []

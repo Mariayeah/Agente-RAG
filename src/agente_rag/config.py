@@ -14,7 +14,8 @@ from pathlib import Path
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    _repo_root = Path(__file__).resolve().parents[2]
+    load_dotenv(dotenv_path=_repo_root / ".env")
 except ImportError:
     pass
 

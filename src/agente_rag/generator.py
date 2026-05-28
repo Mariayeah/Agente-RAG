@@ -35,12 +35,16 @@ class Generation:
     model: str
 
 
-def generate(prompt: str, *, temperature: float = 0.2, model: str | None = None) -> Generation:
+def generate(prompt: str, *, temperature: float = 0.2, model: str | None = None, servidor: str | None = None) -> Generation:
     """Genera una respuesta a partir del prompt usando enrutamiento local o remoto."""
     chosen_model = model or SETTINGS.llm_model
     
-    # Detectamos de manera inteligente si es un modelo remoto de la UPV
-    es_modelo_poligpt = any(keyword in chosen_model.lower() for keyword in ["gpt", "claude", "mini", "gemma3"])
+    # Enrutamiento basado en la variable de control explícita 'servidor'
+    if servidor is not None:
+        es_modelo_poligpt = (servidor == "poligpt")
+    else:
+        # Fallback por si se llama directamente sin servidor
+        es_modelo_poligpt = any(keyword in chosen_model.lower() for keyword in ["gpt", "claude", "mini", "gemma3"])
     
     t0 = time.time()
     

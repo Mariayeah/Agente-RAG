@@ -17,18 +17,19 @@ def answer(
     *, 
     k: int = 5, 
     conversation_id: str | None = None,
-    model: str | None = None
+    model: str | None = None,
+    servidor: str | None = None
 ) -> dict:
     """Responde a ``question`` siguiendo el contrato de interfaz oficial de la asignatura."""
     
     # 1. Fase de Retrieval: Recuperar los fragmentos de la base de datos persistente
-    retrieved = retrieve(question, k=k)
+    retrieved = retrieve(question, k=k, servidor=servidor)
     
     # 2. Fase de Prompteo: Insertar el contexto en la plantilla anti-alucinaciones
     prompt = build_prompt(question, retrieved)
     
     # 3. Fase de Generación: Llamada al LLM (Ollama o PoliGPT) pasando el modelo dinámico
-    gen = generate(prompt, model=model)
+    gen = generate(prompt, model=model, servidor=servidor)
 
     # 4. Construcción del contrato oficial con los campos exigidos
     return {

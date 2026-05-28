@@ -46,8 +46,8 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 load_dotenv()
 
-ARCHIVO_PREGUNTAS = Path("benchmark/preguntas.json")
-ARCHIVO_RESULTADOS = Path("evaluacion/ragas_results.json")
+ARCHIVO_PREGUNTAS = Path(__file__).resolve().parent.parent / "benchmark" / "preguntas.json"
+ARCHIVO_RESULTADOS = Path(__file__).resolve().parent / "ragas_results.json"
 
 def ejecutar_evaluacion():
     if not ARCHIVO_PREGUNTAS.exists():
@@ -64,10 +64,10 @@ def ejecutar_evaluacion():
     consultar.LLM_MODEL = "gemma3:27b"
     
     datos_ragas = {
-        "question": [],
-        "answer": [],
-        "contexts": [],
-        "ground_truth": []
+        "user_input": [],
+        "response": [],
+        "retrieved_contexts": [],
+        "reference": []
     }
 
     for p in preguntas:
@@ -78,10 +78,10 @@ def ejecutar_evaluacion():
         print(f"  -> Preguntando: {p['pregunta']}")
         respuesta_agente = consultar.consultar(p["pregunta"])
         
-        datos_ragas["question"].append(p["pregunta"])
-        datos_ragas["answer"].append(respuesta_agente["respuesta"])
-        datos_ragas["contexts"].append(respuesta_agente["chunks"])
-        datos_ragas["ground_truth"].append(p["respuesta_esperada"])
+        datos_ragas["user_input"].append(p["pregunta"])
+        datos_ragas["response"].append(respuesta_agente["respuesta"])
+        datos_ragas["retrieved_contexts"].append([c["text"] for c in respuesta_agente["chunks"]])
+        datos_ragas["reference"].append(p["respuesta_esperada"])
 
     # Convertimos los datos al formato Dataset requerido por RAGAs
     dataset = Dataset.from_dict(datos_ragas)
@@ -89,17 +89,30 @@ def ejecutar_evaluacion():
     print("\n⚖️ Iniciando el Juez RAGAs (PoliGPT)... Esto puede tardar un par de minutos.")
     
     # Configuramos PoliGPT como el "Juez"
+    from agente_rag.config import SETTINGS
     juez_llm = ChatOpenAI(
-        base_url=os.environ.get("POLIGPT_BASE_URL"),
-        api_key=os.environ.get("POLIGPT_API_KEY"),
-        model="poligpt" 
+        base_url=SETTINGS.poligpt_base_url,
+        api_key=SETTINGS.poligpt_api_key,
+        model="poligpt",
+        timeout=600.0,
+        max_retries=10
     )
     
     # Usamos los embeddings disponibles en PoliGPT
     juez_embeddings = OpenAIEmbeddings(
-        base_url=os.environ.get("POLIGPT_BASE_URL"),
-        api_key=os.environ.get("POLIGPT_API_KEY"),
-        model="nomic-embed-text" 
+        base_url=SETTINGS.poligpt_base_url,
+        api_key=SETTINGS.poligpt_api_key,
+        model="nomic-embed-text",
+        timeout=600.0,
+        max_retries=10
+    )
+
+    # Configuración de ejecución ultra conservadora para la API remota
+    from ragas.run_config import RunConfig
+    run_config = RunConfig(
+        max_workers=1,      # Modo estrictamente secuencial
+        timeout=600,        # 10 minutos de margen por pregunta (PoliGPT puede ser muy lento)
+        max_retries=10
     )
 
     try:
@@ -113,7 +126,9 @@ def ejecutar_evaluacion():
                 ContextRecall()
             ],
             llm=juez_llm,
-            embeddings=juez_embeddings
+            embeddings=juez_embeddings,
+            run_config=run_config,
+            raise_exceptions=False  # Evita que todo el script pete si falla una pregunta aislada
         )
         
         # Extraemos los datos a través de Pandas (máxima estabilidad entre versiones)
