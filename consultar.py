@@ -1,134 +1,51 @@
-"""Punto de entrada del contrato (Opción A — módulo Python)."""
+#!/usr/bin/env python3
+"""Punto de entrada oficial del contrato de la asignatura (§9, Opción A).
+
+Actúa como una capa delgada de interfaz (módulo Python) que delega la orquestación 
+completa del RAG al paquete modular alojado en 'src/agente_rag/'.
+"""
 
 from __future__ import annotations
-import json
-import sys
-import os
-from pathlib import Path
-import requests
-import chromadb
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from dotenv import load_dotenv
-from openai import OpenAI
 
-# Cargar variables de entorno (.env)
+import sys
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+
+# 1. Carga segura del entorno al inicializar el punto de entrada
 load_dotenv()
 
-# Configuración por defecto
-SERVIDOR_LLM = "ollama_local" # Puede ser "ollama_local" o "poligpt"
-OLLAMA_URL = "http://localhost:11434/api"
-LLM_MODEL = "llama3.2:3b"  
-EMBED_MODEL = "nomic-embed-text" 
+# 2. Inyección dinámica en el path de ejecución para localizar el paquete en src/
+repo_root = Path(__file__).resolve().parent
+sys.path.append(str(repo_root / "src"))
 
-# --- 1. Inicialización y carga en ChromaDB (Fase Offline) ---
-def inicializar_vector_store():
-    client = chromadb.Client()
-    col = client.get_or_create_collection("dni_v2")
-    
-    if col.count() > 0:
-        return col
+# 3. Importación del pipeline unificado de generación y respuesta
+from agente_rag.pipeline import answer
 
-    docs = []
-    base_path = Path("base conocimiento")
-    if not base_path.exists():
-        print(f"Advertencia: No se encontró la carpeta {base_path}", file=sys.stderr)
-        return col
 
-    for path in sorted(base_path.glob("*.txt")):
-        docs.append({"name": path.name, "text": path.read_text(encoding="utf-8")})
-        
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=250)
-    chunks = []
-    for doc in docs:
-        for i, c in enumerate(splitter.split_text(doc["text"])):
-            chunks.append({"id": f"{doc['name']}_{i}", "text": c, "source": doc["name"]})
-            
-    def embed(text):
-        r = requests.post(f"{OLLAMA_URL}/embeddings", json={"model": EMBED_MODEL, "prompt": text})
-        return r.json().get("embedding", [])
-
-    if chunks:
-        ids = [ch["id"] for ch in chunks]
-        textos = [ch["text"] for ch in chunks]
-        metadatos = [{"source": ch["source"]} for ch in chunks]
-        vectores = [embed(t) for t in textos]
-
-        col.add(ids=ids, embeddings=vectores, documents=textos, metadatas=metadatos)
-        
-    return col
-
-coleccion_dni = inicializar_vector_store()
-
-def embed_query(text):
-    r = requests.post(f"{OLLAMA_URL}/embeddings", json={"model": EMBED_MODEL, "prompt": text})
-    return r.json().get("embedding", [])
-
-# --- 2. Función del Contrato (Fase Online) ---
 def consultar(pregunta: str, conversation_id: str | None = None) -> dict:
-    """Función obligatoria del contrato (enunciado §9, opción A)."""
+    """Función obligatoria por contrato de interfaz exigida en el enunciado.
     
-    q_emb = embed_query(pregunta)
-    res = coleccion_dni.query(query_embeddings=[q_emb], n_results=5)
-    
-    documentos_recuperados = res["documents"][0] if res.get("documents") else []
-    metadatos_recuperados = res["metadatas"][0] if res.get("metadatas") else []
-    
-    contexto = "\n\n".join(documentos_recuperados)
-    
-    prompt = f"""Eres un asistente de la asociación DNI. Responde SOLO usando el contexto. Si no está, di que no lo sabes.
-CONTEXTO:
-{contexto}
+    Toma la consulta del usuario y retorna el JSON estructurado con la respuesta, 
+    las fuentes fidedignas mapeadas en disco, los chunks y las métricas avanzadas.
+    """
+    # Delegamos de manera transparente en el orquestador modular del pipeline
+    return answer(pregunta, conversation_id=conversation_id)
 
-PREGUNTA: {pregunta}
-RESPUESTA:"""
-
-    respuesta_llm = "Error de conexión."
-
-    try:
-        # Llamar al LLM dependiendo del servidor elegido
-        if SERVIDOR_LLM == "ollama_local":
-            r = requests.post(f"{OLLAMA_URL}/generate", json={
-                "model": LLM_MODEL, 
-                "prompt": prompt,
-                "stream": False,
-                "options": {"temperature": 0.2}
-            })
-            respuesta_llm = r.json().get("response", "Error de conexión con el LLM local.")
-            
-        elif SERVIDOR_LLM == "poligpt":
-            # Conexión a la API de la UPV usando la librería de OpenAI
-            client = OpenAI(
-                base_url=os.environ.get("POLIGPT_BASE_URL"),
-                api_key=os.environ.get("POLIGPT_API_KEY")
-            )
-            resp = client.chat.completions.create(
-                model=LLM_MODEL,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.2
-            )
-            respuesta_llm = resp.choices[0].message.content
-            
-    except Exception as e:
-        respuesta_llm = f"Error en la generación: {str(e)}"
-    
-    fuentes = list(set([m["source"] for m in metadatos_recuperados]))
-
-    return {
-        "respuesta": respuesta_llm,
-        "fuentes": fuentes,
-        "chunks": documentos_recuperados,
-        "metricas": None,
-        "trazas": None
-    }
 
 def _main(argv: list[str]) -> int:
+    """Manejador de la interfaz de línea de comandos (CLI) con codificación limpia."""
     if len(argv) < 2:
-        print('Uso: python consultar.py "<pregunta>"', file=sys.stderr)
+        print('Uso correcto en terminal: python consultar.py "<tu pregunta aquí>"', file=sys.stderr)
         return 2
-    pregunta = " ".join(argv[1:])
-    result = consultar(pregunta)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+        
+    pregunta_cmd = " ".join(argv[1:])
+    resultado = consultar(pregunta_cmd)
+    
+    # Emisión del volcado JSON en UTF-8 puro garantizando que no se rompan caracteres especiales
+    print(json.dumps(resultado, ensure_ascii=False, indent=2))
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(_main(sys.argv))
