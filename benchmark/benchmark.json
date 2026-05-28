@@ -1,768 +1,310 @@
-{
-  "llama3.2:3b": [
-    {
-      "id": "Q01",
-      "tipo": "factual_directa",
-      "pregunta": "¿Qué es DNI y cuál es su lema?",
-      "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\".",
-      "fuentes": [
-        "08_preguntas_basicas.txt",
-        "07_desayunos_logistica.txt",
-        "04_filosofia_dni.txt",
-        "15_desayunos_100_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1267,
-        "output_tokens": 38,
-        "tokens_per_sec": 2.12,
-        "latencia_s": 63.61,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q02",
-      "tipo": "logistica_practica",
-      "pregunta": "¿A qué hora son los desayunos solidarios?",
-      "respuesta": "Según el archivo fuentes [\"07 desayunos logistica.txt\"], los desayunos solidarios tienen lugar a las 8 de la mañana.",
-      "fuentes": [
-        "01_faq_dni.txt",
-        "07_desayunos_logistica.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1267,
-        "output_tokens": 32,
-        "tokens_per_sec": 6.32,
-        "latencia_s": 47.51,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q03",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?",
-      "respuesta": "El punto de encuentro para la actividad de desayunos es la Porta de la Mar de Valencia.",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1441,
-        "output_tokens": 23,
-        "tokens_per_sec": 3.61,
-        "latencia_s": 50.48,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q04",
-      "tipo": "factual_directa",
-      "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?",
-      "respuesta": "La actividad de refuerzo escolar COLES se realiza en el CEIP Antonio Ferrandis de la Coma Valencia.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "11_horarios_ubicaciones.txt",
-        "10_proyectos.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1570,
-        "output_tokens": 27,
-        "tokens_per_sec": 2.44,
-        "latencia_s": 63.23,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q05",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?",
-      "respuesta": "Según la información proporcionada en el archivo \"11_horarios_ubicaciones.txt\", el refuerzo escolar (COLES) se realiza los lunes, martes, miércoles, jueves y viernes de 15:30 a 16:30.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "01_faq_dni.txt",
-        "11_horarios_ubicaciones.txt",
-        "10_proyectos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1549,
-        "output_tokens": 58,
-        "tokens_per_sec": 8.04,
-        "latencia_s": 50.18,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q06",
-      "tipo": "documentacion",
-      "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?",
-      "respuesta": "Para participar en el refuerzo escolar (COLES), es necesario tener el certificado de delitos sexuales en vigor y rellenar el seguro del voluntario.",
-      "fuentes": [
-        "10_proyectos.txt",
-        "11_horarios_ubicaciones.txt",
-        "06_coles_refuerzo.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1571,
-        "output_tokens": 37,
-        "tokens_per_sec": 3.09,
-        "latencia_s": 68.17,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q07",
-      "tipo": "contradiccion_control",
-      "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?",
-      "respuesta": "Según el archivo [03_charlas_abuelitos.txt], el horario de la actividad con abuelitos en la residencia L'Acollida es todos los miércoles de 17:30 a 19:00.",
-      "fuentes": [
-        "11_horarios_ubicaciones.txt",
-        "03_charlas_abuelitos.txt",
-        "10_proyectos.txt",
-        "16_resis_49_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1471,
-        "output_tokens": 50,
-        "tokens_per_sec": 4.23,
-        "latencia_s": 58.33,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q08",
-      "tipo": "sintesis_multi_doc",
-      "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?",
-      "respuesta": "Según la información proporcionada en el archivo \"16_resis_49_preguntas.txt\", los voluntarios de DNI Valencia realizan diversas actividades con los abuelitos en las residencias, como:\n\n* Meriendas\n* Paseos\n* Juegos de mesa\n* Excursiones\n* Muchas más!! (se menciona que hay una variedad de actividades)\n\nEstas actividades se realizan con el objetivo de llevar la alegría de los jóvenes a los residentes y crear un vínculo de amistad, confianza y compañía.",
-      "fuentes": [
-        "05_resis_actividades.txt",
-        "16_resis_49_preguntas.txt",
-        "11_horarios_ubicaciones.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1504,
-        "output_tokens": 123,
-        "tokens_per_sec": 8.55,
-        "latencia_s": 59.66,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q09",
-      "tipo": "factual_directa",
-      "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?",
-      "respuesta": "Según la información proporcionada en el archivo \"08_preguntas_basicas.txt\", la asociación DNI Valencia tiene actualmente +400 voluntarios activos que participan regularmente en sus proyectos.",
-      "fuentes": [
-        "08_preguntas_basicas.txt",
-        "16_resis_49_preguntas.txt",
-        "15_desayunos_100_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1356,
-        "output_tokens": 43,
-        "tokens_per_sec": 3.94,
-        "latencia_s": 49.7,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q10",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?",
-      "respuesta": "Para unirte a la asociación \"Damos Nuestra Ilusión\" (DNI) de Valencia, puedes seguir los siguientes pasos:\n\n1. **Inscríbete en el formulario de inscripción**: El miércoles anterior a cada actividad, se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse. Asegúrate de revisar estos canales para no perderte la oportunidad de participar.\n2. **Únete a la comunidad de WhatsApp**: La asociación tiene una comunidad de WhatsApp donde se comparten información sobre las próximas actividades, convocatorias y novedades. Únete a esta comunidad para estar al tanto de las últimas noticias.\n3. **Sigue a DNI en Instagram**: La asociación también tiene una cuenta de Instagram (@dnivalenciaa) donde publican eventos, fotos y novedades. Sigue a esta cuenta para mantenerse informado sobre las actividades y proyectos.\n\nRecuerda que no necesitas formación previa para unirte a la asociación o participar en las actividades. En DNI creen en el \"learning by doing\" - aprenderás sobre la marcha con el apoyo de voluntarios más experimentados.\n\nFuente: [09_como_participar.txt]",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "01_faq_dni.txt",
-        "09_como_participar.txt",
-        "02_presentacion_desayunos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1414,
-        "output_tokens": 273,
-        "tokens_per_sec": 6.79,
-        "latencia_s": 81.37,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q11",
-      "tipo": "fuera_de_ambito",
-      "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?",
-      "respuesta": "Lo siento, pero no tengo esa información en mis fuentes.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "08_preguntas_basicas.txt",
-        "15_desayunos_100_preguntas.txt",
-        "14_impacto_social.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1423,
-        "output_tokens": 15,
-        "tokens_per_sec": 8.73,
-        "latencia_s": 42.83,
-        "modelo": "llama3.2:3b"
-      }
-    },
-    {
-      "id": "Q12",
-      "tipo": "fuera_de_ambito",
-      "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?",
-      "respuesta": "No tengo esa información en mis fuentes.",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "06_coles_refuerzo.txt",
-        "08_preguntas_basicas.txt",
-        "01_faq_dni.txt",
-        "03_charlas_abuelitos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1286,
-        "output_tokens": 10,
-        "tokens_per_sec": 9.76,
-        "latencia_s": 41.92,
-        "modelo": "llama3.2:3b"
-      }
-    }
-  ],
-  "qwen2.5:3b": [
-    {
-      "id": "Q01",
-      "tipo": "factual_directa",
-      "pregunta": "¿Qué es DNI y cuál es su lema?",
-      "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". La filosofía de DNI se resume en estas tres palabras, guiando su labor de voluntariado. Para detenerse y observar a las personas que nos rodean con empatía, luego ofrecer ayuda de manera directa para mejorar la vida de otros.",
-      "fuentes": [
-        "08_preguntas_basicas.txt",
-        "07_desayunos_logistica.txt",
-        "04_filosofia_dni.txt",
-        "15_desayunos_100_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1280,
-        "output_tokens": 95,
-        "tokens_per_sec": 6.85,
-        "latencia_s": 59.49,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q02",
-      "tipo": "logistica_practica",
-      "pregunta": "¿A qué hora son los desayunos solidarios?",
-      "respuesta": "Los desayunos solidarios son a las 8 de la mañana.",
-      "fuentes": [
-        "01_faq_dni.txt",
-        "07_desayunos_logistica.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1278,
-        "output_tokens": 16,
-        "tokens_per_sec": 6.03,
-        "latencia_s": 36.76,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q03",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?",
-      "respuesta": "El punto de encuentro para la actividad de desayunos solidarios es siempre la Porta de la Mar de Valencia.",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1452,
-        "output_tokens": 26,
-        "tokens_per_sec": 9.47,
-        "latencia_s": 39.18,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q04",
-      "tipo": "factual_directa",
-      "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?",
-      "respuesta": "El refuerzo escolar (COLES) se realiza en el CEIP Antonio Ferrandis de la Coma Valencia.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "11_horarios_ubicaciones.txt",
-        "10_proyectos.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1607,
-        "output_tokens": 27,
-        "tokens_per_sec": 12.56,
-        "latencia_s": 44.4,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q05",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?",
-      "respuesta": "El refuerzo escolar (COLES) se realiza los siguientes días:\n\n- Lunes\n- Martes\n- Miércoles\n- Jueves\n- Viernes\n\nEn horario de 15:30 a 16:30.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "01_faq_dni.txt",
-        "11_horarios_ubicaciones.txt",
-        "10_proyectos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1589,
-        "output_tokens": 57,
-        "tokens_per_sec": 11.83,
-        "latencia_s": 38.37,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q06",
-      "tipo": "documentacion",
-      "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?",
-      "respuesta": "Para participar en el refuerzo escolar, es necesario cumplir con los siguientes requisitos:\n\n- Tener el certificado de delitos sexuales en vigor.\n- Rellenar el seguro del voluntario.\n\nEstos son los documentos o requisitos mínimos para empezar a participar en la actividad.",
-      "fuentes": [
-        "10_proyectos.txt",
-        "11_horarios_ubicaciones.txt",
-        "06_coles_refuerzo.txt",
-        "01_faq_dni.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1608,
-        "output_tokens": 65,
-        "tokens_per_sec": 8.75,
-        "latencia_s": 49.82,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q07",
-      "tipo": "contradiccion_control",
-      "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?",
-      "respuesta": "Las actividades con los abuelitos en la residencia L'Acollida se realizan todos los miércoles de 5:30 a 6:30 de la tarde (17:30-18:30h). La residencia está ubicada en la calle Crevillente 22, cerca de la Avenida Blasco Ibáñez en Valencia.",
-      "fuentes": [
-        "11_horarios_ubicaciones.txt",
-        "03_charlas_abuelitos.txt",
-        "10_proyectos.txt",
-        "16_resis_49_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1509,
-        "output_tokens": 85,
-        "tokens_per_sec": 11.32,
-        "latencia_s": 46.52,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q08",
-      "tipo": "sintesis_multi_doc",
-      "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?",
-      "respuesta": "Los voluntarios en la actividad de residencia \"RESIS\" con los abuelitos (residentes de la Residencia La Acollida) realizan una variedad de actividades. Algunas de estas actividades incluyen:\n\n- Meriendas\n- Paseos\n- Juegos de mesa\n- Excursiones\n\nAdemás, se menciona que realizan muchas más actividades no especificadas en el contexto proporcionado.",
-      "fuentes": [
-        "05_resis_actividades.txt",
-        "16_resis_49_preguntas.txt",
-        "11_horarios_ubicaciones.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1541,
-        "output_tokens": 91,
-        "tokens_per_sec": 5.91,
-        "latencia_s": 57.15,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q09",
-      "tipo": "factual_directa",
-      "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?",
-      "respuesta": "fuentes: [\"08_preguntas_basicas.txt\"]",
-      "fuentes": [
-        "08_preguntas_basicas.txt",
-        "16_resis_49_preguntas.txt",
-        "15_desayunos_100_preguntas.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1379,
-        "output_tokens": 14,
-        "tokens_per_sec": 13.87,
-        "latencia_s": 35.34,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q10",
-      "tipo": "logistica_practica",
-      "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?",
-      "respuesta": "Para unirte a la asociación DNI Valencia o apuntarte a las actividades, sigue estos pasos:\n\n1. **Consulta el calendario de la comunidad de WhatsApp**: Los desayunos solidarios se realizan una vez por semana, los sábados por la mañana.\n\n2. **Insíbrate en el formulario**: Si quieres participar en un próximo desayuno, consulta la comunidad de WhatsApp o redes sociales (Instagram @dnivalenciaa) para ver si hay una actividad programada ese sábado. El miércoles anterior a la actividad, se publicará un formulario por la comunidad de WhatsApp y redes sociales para inscribirte.\n\n3. **Consulta las zonas de reparto**: Los desayunos solidarios se realizan en diferentes zonas de Valencia como Puentes y Alameda, Mestalla, Colón, Mercado Central y Lonja, Plaza de la Virgen y El Carmen, FNAC y San Agustín.\n\n4. **Participa activamente en las actividades**: Después de la actividad, todos los grupos se reúnen para un desayuno voluntario que dura aproximadamente una hora y media más el tiempo que quieran los participantes.\n\n5. **Formación por \"learning by doing\"**: No necesitas formación previa. Antes de cada actividad te explicamos qué hacer, y siempre hay coordinadores que te guían. Para proyectos más especializados (como refuerzo escolar COLES) sí te damos unas pautas específicas, pero siempre de forma accesible y práctica.\n\n6. **Mantente atento a las notificaciones**: Mantente atento a las notificaciones para no perderte ninguna actividad importante.\n\n7. **Comparte experiencias y aprendizajes**: Asegúrate de compartir tus experiencias y aprendizajes con otros voluntarios, ya que esto es parte del \"learning by doing\" en DNI Valencia.\n\nRecuerda que la asociación aprecia mucho el apoyo de todos los voluntarios y siempre está buscando más personas para sumar a su equipo.",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "01_faq_dni.txt",
-        "09_como_participar.txt",
-        "02_presentacion_desayunos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1425,
-        "output_tokens": 435,
-        "tokens_per_sec": 9.88,
-        "latencia_s": 83.59,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q11",
-      "tipo": "fuera_de_ambito",
-      "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?",
-      "respuesta": "No tengo esa información en mis fuentes.",
-      "fuentes": [
-        "06_coles_refuerzo.txt",
-        "08_preguntas_basicas.txt",
-        "15_desayunos_100_preguntas.txt",
-        "14_impacto_social.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1443,
-        "output_tokens": 10,
-        "tokens_per_sec": 10.97,
-        "latencia_s": 39.4,
-        "modelo": "qwen2.5:3b"
-      }
-    },
-    {
-      "id": "Q12",
-      "tipo": "fuera_de_ambito",
-      "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?",
-      "respuesta": "No tengo esa información en mis fuentes.",
-      "fuentes": [
-        "07_desayunos_logistica.txt",
-        "06_coles_refuerzo.txt",
-        "08_preguntas_basicas.txt",
-        "01_faq_dni.txt",
-        "03_charlas_abuelitos.txt"
-      ],
-      "metricas": {
-        "prompt_tokens": 1310,
-        "output_tokens": 10,
-        "tokens_per_sec": 8.79,
-        "latencia_s": 33.13,
-        "modelo": "qwen2.5:3b"
-      }
-    }
-  ],
-  "gpt-4o-mini": [
-    {
-      "id": "Q01",
-      "pregunta": "¿Qué es DNI y cuál es su lema?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q02",
-      "pregunta": "¿A qué hora son los desayunos solidarios?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q03",
-      "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q04",
-      "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q05",
-      "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q06",
-      "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q07",
-      "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q08",
-      "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q09",
-      "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q10",
-      "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q11",
-      "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    },
-    {
-      "id": "Q12",
-      "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "gpt-4o-mini"
-      }
-    }
-  ],
-  "claude-3-5-haiku": [
-    {
-      "id": "Q01",
-      "pregunta": "¿Qué es DNI y cuál es su lema?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q02",
-      "pregunta": "¿A qué hora son los desayunos solidarios?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q03",
-      "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q04",
-      "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q05",
-      "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q06",
-      "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q07",
-      "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q08",
-      "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q09",
-      "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q10",
-      "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q11",
-      "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    },
-    {
-      "id": "Q12",
-      "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?",
-      "respuesta": "ERROR DE EJECUCIÓN: Error code: 401 - {'error': {'message': 'Authentication Error, Invalid proxy server token passed. Received API Key = sk-...Sdsg, Key Hash (Token) =727aad2ef81ec2b9236240b6bb227c4b4fcd3ab05c4e44b6aa5b3422bcf1ff64. Unable to find token in cache or `LiteLLM_VerificationTokenTable`', 'type': 'token_not_found_in_db', 'param': 'key', 'code': '401'}}",
-      "fuentes": [],
-      "metricas": {
-        "prompt_tokens": 0,
-        "output_tokens": 0,
-        "tokens_per_sec": 0.0,
-        "latencia_s": 0.0,
-        "modelo": "claude-3-5-haiku"
-      }
-    }
-  ]
-}
+[
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES).",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "08_preguntas_basicas.txt",
+      "04_filosofia_dni.txt"
+    ],
+    "latencia_segundos": 5.46,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
+    "fuentes_citadas": [
+      "07_desayunos_logistica.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 1.7,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "De la gasolina se encarga la asociación.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 1.28,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "Los proyectos de RESIS y COLES se diferencian en que los de RESIS permiten crear vínculos más profundos con abuelitos en residencias, mientras que los de COLES ayudan a niños en situación vulnerable en una biblioteca tutorizada.",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "04_filosofia_dni.txt",
+      "09_como_participar.txt",
+      "15_desayunos_100_preguntas.txt"
+    ],
+    "latencia_segundos": 1.94,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "gemma3:4b",
+    "servidor": "ollama_local",
+    "respuesta": "No lo sabes.",
+    "fuentes_citadas": [
+      "14_impacto_social.txt",
+      "06_coles_refuerzo.txt",
+      "04_filosofia_dni.txt",
+      "15_desayunos_100_preguntas.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.12,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\".",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "08_preguntas_basicas.txt",
+      "04_filosofia_dni.txt"
+    ],
+    "latencia_segundos": 4.72,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
+    "fuentes_citadas": [
+      "07_desayunos_logistica.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 2.2,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "La asociación DNI paga la gasolina del refuerzo escolar.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 0.9,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "No lo sabes.",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "04_filosofia_dni.txt",
+      "09_como_participar.txt",
+      "15_desayunos_100_preguntas.txt"
+    ],
+    "latencia_segundos": 0.73,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "llama3.2:3b",
+    "servidor": "ollama_local",
+    "respuesta": "Lo siento, pero no tengo información sobre el precio del alquiler de un piso de estudiantes en Valencia. La respuesta anterior no era relevante para la pregunta.",
+    "fuentes_citadas": [
+      "14_impacto_social.txt",
+      "06_coles_refuerzo.txt",
+      "04_filosofia_dni.txt",
+      "15_desayunos_100_preguntas.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.17,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema **“PARA. MIRA. AYUDA”**. Somos más de 400 voluntarios activos que desarrollan proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES), con la misión de acompañar a quien lo necesita mediante empatía y acción directa.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "08_preguntas_basicas.txt",
+      "04_filosofia_dni.txt"
+    ],
+    "latencia_segundos": 3.9,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "Para apuntarte, revisa la comunidad de WhatsApp o nuestras redes sociales: si hay desayuno ese sábado, el miércoles se publica un formulario de inscripción. Sólo tienes que completarlo para confirmar tu participación.",
+    "fuentes_citadas": [
+      "07_desayunos_logistica.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 2.08,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "De la gasolina se encarga la asociación.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 1.2,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "Los proyectos **RESIS** y **COLES** son muy diferentes en cuanto a su objetivo, público y forma de actuar:\n\n| Aspecto | RESIS (Charlas con Abuelitos) | COLES (Refuerzo Escolar) |\n|---------|------------------------------|--------------------------|\n| **Público al que se dirige** | Personas mayores que viven en residencias (ej. residencia L'Acollida). | Niños y niñas en situación vulnerable que necesitan apoyo académico. |\n| **Tipo de actividad** | Conversaciones, compañía y escucha activa; se trata de crear vínculos emocionales y romper la soledad. | Tutorías y refuerzo escolar en una biblioteca, ayudando con tareas, lecturas y otras materias. |\n| **Lugar habitual** | Residencias de ancianos (ej. L'Acollida). | Biblioteca tutorizada donde se organizan los grupos de estudio. |\n| **Horario típico** | Miércoles de 17:30 a 18:30 pm. | Horarios flexibles según la disponibilidad de la biblioteca y los voluntarios, centrados en sesiones de estudio. |\n| **Objetivo principal** | Acompañar, conversar y ofrecer apoyo emocional a los mayores. | Mejorar el rendimiento escolar y ofrecer apoyo educativo a niños en riesgo. |\n| **Duración de la intervención** | Aproximadamente 1 hora por sesión. | Sesiones de varias horas según la necesidad del grupo y la planificación del proyecto. |\n\nEn resumen, **RESIS** se centra en la compañía y el diálogo con personas mayores, mientras que **COLES** se enfoca en la ayuda académica y el refuerzo educativo para niños. Cada uno aporta una forma distinta de solidaridad según la etapa de vida y las necesidades de los beneficiarios.",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "04_filosofia_dni.txt",
+      "09_como_participar.txt",
+      "15_desayunos_100_preguntas.txt"
+    ],
+    "latencia_segundos": 6.07,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "poligpt",
+    "servidor": "poligpt",
+    "respuesta": "No lo sé.",
+    "fuentes_citadas": [
+      "14_impacto_social.txt",
+      "06_coles_refuerzo.txt",
+      "04_filosofia_dni.txt",
+      "15_desayunos_100_preguntas.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.17,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 1,
+    "pregunta": "¿Qué es DNI?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema \"PARA. MIRA. AYUDA\". Somos +400 voluntarios activos que realizamos proyectos sociales como desayunos solidarios para personas sin hogar, actividades con ancianos (RESIS) y refuerzo escolar (COLES). Nuestra misión es acompañar a quien lo necesita con empatía y acción directa.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "08_preguntas_basicas.txt",
+      "04_filosofia_dni.txt"
+    ],
+    "latencia_segundos": 3.29,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 2,
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "La actividad se realiza siempre los sábados. Si ese sábado hay actividad, el miércoles se publica por la comunidad de WhatsApp y por redes sociales un formulario para inscribirse.",
+    "fuentes_citadas": [
+      "07_desayunos_logistica.txt",
+      "01_faq_dni.txt"
+    ],
+    "latencia_segundos": 2.03,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 3,
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "De la gasolina se encarga la asociación.",
+    "fuentes_citadas": [
+      "06_coles_refuerzo.txt",
+      "01_faq_dni.txt",
+      "10_proyectos.txt"
+    ],
+    "latencia_segundos": 1.61,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 4,
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "RESIS (Charlas con Abuelitos) permite crear vínculos más profundos si puedes ir regularmente, mientras que COLES (Refuerzo Escolar) es ayudar a niños en situación vulnerable. RESIS se realiza los miércoles de 5:30-6:30pm en la residencia L'Acollida y COLES en una biblioteca tutorizada.",
+    "fuentes_citadas": [
+      "10_proyectos.txt",
+      "04_filosofia_dni.txt",
+      "09_como_participar.txt",
+      "15_desayunos_100_preguntas.txt"
+    ],
+    "latencia_segundos": 2.6,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  },
+  {
+    "pregunta_id": 5,
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "modelo": "gemma3:27b",
+    "servidor": "poligpt",
+    "respuesta": "No lo sé.",
+    "fuentes_citadas": [
+      "14_impacto_social.txt",
+      "06_coles_refuerzo.txt",
+      "04_filosofia_dni.txt",
+      "15_desayunos_100_preguntas.txt",
+      "08_preguntas_basicas.txt"
+    ],
+    "latencia_segundos": 1.53,
+    "tokens_entrada": 0,
+    "tokens_salida": 0
+  }
+]

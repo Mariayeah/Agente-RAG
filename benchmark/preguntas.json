@@ -1,62 +1,32 @@
 [
   {
-    "id": "Q01",
-    "tipo": "factual_directa",
-    "pregunta": "¿Qué es DNI y cuál es su lema?"
+    "id": 1,
+    "tipo": "factual directa",
+    "pregunta": "¿Qué es DNI?",
+    "respuesta_esperada": "DNI (Damos Nuestra Ilusión) es una asociación de jóvenes voluntarios en Valencia con el lema 'PARA. MIRA. AYUDA'. Realizan proyectos sociales como desayunos solidarios, actividades con ancianos (RESIS) y refuerzo escolar (COLES)."
   },
   {
-    "id": "Q02",
-    "tipo": "logistica_practica",
-    "pregunta": "¿A qué hora son los desayunos solidarios?"
+    "id": 2,
+    "tipo": "logistica",
+    "pregunta": "¿Cómo me apunto a los desayunos solidarios?",
+    "respuesta_esperada": "La actividad se realiza los sábados. El miércoles anterior se publica un formulario de inscripción por la comunidad de WhatsApp y redes sociales que debes rellenar."
   },
   {
-    "id": "Q03",
-    "tipo": "logistica_practica",
-    "pregunta": "¿Dónde es el punto de encuentro para la actividad de desayunos?"
+    "id": 3,
+    "tipo": "logistica",
+    "pregunta": "¿Quién paga la gasolina del refuerzo escolar?",
+    "respuesta_esperada": "De los gastos de gasolina se encarga la propia asociación."
   },
   {
-    "id": "Q04",
-    "tipo": "factual_directa",
-    "pregunta": "¿En qué colegio se realiza la actividad de refuerzo escolar COLES?"
+    "id": 4,
+    "tipo": "sintesis",
+    "pregunta": "¿En qué se diferencian los proyectos de RESIS y COLES?",
+    "respuesta_esperada": "RESIS se enfoca en hacer compañía y conversar con personas mayores en residencias para combatir la soledad. COLES se centra en dar refuerzo escolar y apoyo académico a niños y niñas en situación vulnerable."
   },
   {
-    "id": "Q05",
-    "tipo": "logistica_practica",
-    "pregunta": "¿Qué días y en qué horario se realiza el refuerzo escolar?"
-  },
-  {
-    "id": "Q06",
-    "tipo": "documentacion",
-    "pregunta": "¿Qué documentos o requisitos necesito para participar en el refuerzo escolar?"
-  },
-  {
-    "id": "Q07",
-    "tipo": "contradiccion_control",
-    "pregunta": "¿Cuál es el horario de la actividad con abuelitos en la residencia La Acollida?"
-  },
-  {
-    "id": "Q08",
-    "tipo": "sintesis_multi_doc",
-    "pregunta": "¿Qué actividades diferentes realizan los voluntarios con los abuelitos en las residencias?"
-  },
-  {
-    "id": "Q09",
-    "tipo": "factual_directa",
-    "pregunta": "¿Cuántos voluntarios activos tiene actualmente la asociación DNI?"
-  },
-  {
-    "id": "Q10",
-    "tipo": "logistica_practica",
-    "pregunta": "¿Cómo puedo unirme a la asociación o apuntarme a las actividades?"
-  },
-  {
-    "id": "Q11",
-    "tipo": "fuera_de_ambito",
-    "pregunta": "¿Cuánto cuesta el alquiler medio de un piso de estudiantes en Valencia?"
-  },
-  {
-    "id": "Q12",
-    "tipo": "fuera_de_ambito",
-    "pregunta": "¿Qué asignaturas se imparten en el tercer curso del grado de Tecnologías Interactivas?"
+    "id": 5,
+    "tipo": "fuera de ambito",
+    "pregunta": "¿Cuánto cuesta el alquiler de un piso de estudiantes en Valencia?",
+    "respuesta_esperada": "No tengo esa información en mis fuentes."
   }
 ]

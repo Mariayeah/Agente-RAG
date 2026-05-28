@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Punto de entrada oficial exigido por el contrato de la asignatura (§9, opción A).
-
-Invoca el pipeline modularizado del agente RAG alojado en la carpeta 'src/',
-asegurando que toda la lógica de dominio esté desacoplada del punto de entrada.
+"""
+================================================================================
+Asistente DNI Valencia — Punto de Entrada Oficial con Soporte de Legado
+================================================================================
+Mantiene compatibilidad absoluta con scripts de evaluación externos (Banda 7 y 8)
+al exponer variables globales de configuración expuestas, delegando la ejecución
+real en el pipeline persistente empaquetado en 'src/'.
 """
 
 from __future__ import annotations
@@ -10,27 +13,43 @@ from __future__ import annotations
 import sys
 import json
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Inyección dinámica del path para localizar la carpeta src/ en el espacio de trabajo
+# 1. Carga del entorno
+load_dotenv()
+
+# 2. Inyección dinámica del path para localizar src/
 repo_root = Path(__file__).resolve().parent
 sys.path.append(str(repo_root / "src"))
 
-# Importamos el orquestador oficial del paquete modular
 from agente_rag.pipeline import answer
+
+# ==============================================================================
+# INTERFAZ DE LEGADO: Variables globales para no romper scripts de tu compañero
+# ==============================================================================
+SERVIDOR_LLM = "ollama_local"  # Modificable externamente por benchmark.py / ragas.py
+LLM_MODEL = "llama3.2:3b"      # Modificable externamente por benchmark.py / ragas.py
 
 
 def consultar(pregunta: str, conversation_id: str | None = None) -> dict:
-    """Función de interfaz obligatoria exigida por el contrato del enunciado.
-    
-    Delega la ejecución completa del RAG al orquestador modular y devuelve el 
-    diccionario exacto de la Banda 7 con fuentes, chunks y métricas.
     """
-    # Llamamos al pipeline pasándole la pregunta y el id opcional de conversación
-    return answer(pregunta, conversation_id=conversation_id)
+    Función de interfaz obligatoria por contrato (§9, Opción A).
+    
+    Lee dinámicamente el estado de las variables globales del módulo para 
+    enrutar la petición al modelo correcto de forma transparente.
+    """
+    # Si detectamos que el script externo configuró "poligpt" de forma manual
+    # pero el modelo no incluye palabras clave remotas, mapeamos el alias dinámico
+    alias_ejecucion = LLM_MODEL
+    if SERVIDOR_LLM == "poligpt" and LLM_MODEL == "poligpt":
+        alias_ejecucion = "gpt-4o-mini"  # Fallback seguro para PoliGPT
+        
+    # Delegación en el orquestador modular pasando el modelo activo al vuelo
+    return answer(pregunta, model=alias_ejecucion, conversation_id=conversation_id)
 
 
 def _main(argv: list[str]) -> int:
-    """Función de ejecución en terminal que emite el JSON bajo codificación limpia."""
+    """Manejador de la CLI de la terminal."""
     if len(argv) < 2:
         print('Uso correcto en terminal: python consultar.py "<tu pregunta aquí>"', file=sys.stderr)
         return 2
@@ -38,7 +57,6 @@ def _main(argv: list[str]) -> int:
     pregunta_cmd = " ".join(argv[1:])
     resultado = consultar(pregunta_cmd)
     
-    # Imprimir el JSON estructurado con codificación UTF-8 pura para evitar fallos de acentos en terminales
     print(json.dumps(resultado, ensure_ascii=False, indent=2))
     return 0
 

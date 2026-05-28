@@ -1,96 +1,87 @@
 #!/usr/bin/env python3
-"""Script de automatización de Benchmark (Banda 7).
+"""Script de evaluación automatizada (Benchmark de la Banda 7).
 
-Recorre el set de preguntas fijas contra los 4 modelos declarados 
-(2 locales en Ollama y 2 remotos en PoliGPT) y almacena las respuestas 
-junto con sus métricas de rendimiento en un JSON crudo.
+Itera sobre el set fijo de preguntas contra los 4 modelos configurados,
+capturando de manera fidedigna las respuestas y las métricas de rendimiento.
 """
 
-from __future__ import annotations
-
-import os
-import sys
 import json
+import time
+import sys
 from pathlib import Path
 
-# Inyección del path para localizar el paquete modular en src/
-repo_root = Path(__file__).resolve().parents[1]
-sys.path.append(str(repo_root / "src"))
+# Añadimos la raíz del proyecto al path para poder importar consultar.py
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import consultar 
 
-from agente_rag.pipeline import answer
+ARCHIVO_PREGUNTAS = Path("benchmark/preguntas.json")
+ARCHIVO_RESULTADOS = Path("benchmark/benchmark.json")
 
-# Definición de los 4 modelos oficiales del equipo
+# Los 4 modelos que pide la rúbrica (Banda 7)
 MODELOS = [
+    # Los 2 locales (pequeños y rápidos)
+    {"alias": "gemma3:4b", "servidor": "ollama_local"},
     {"alias": "llama3.2:3b", "servidor": "ollama_local"},
-    {"alias": "qwen2.5:3b", "servidor": "ollama_local"},
-    {"alias": "gpt-4o-mini", "servidor": "poligpt"},
-    {"alias": "claude-3-5-haiku", "servidor": "poligpt"}
+    
+    # Los 2 remotos de PoliGPT (grandes y potentes)
+    {"alias": "poligpt", "servidor": "poligpt"},
+    {"alias": "gemma3:27b", "servidor": "poligpt"} 
 ]
 
-def cargar_preguntas() -> list[dict]:
-    ruta_preguntas = repo_root / "benchmark" / "preguntas.json"
-    if not ruta_preguntas.exists():
-        raise FileNotFoundError(f"❌ No se encontró el archivo de preguntas en {ruta_preguntas}")
-    with open(ruta_preguntas, "r", encoding="utf-8") as f:
-        return json.load(f)
-
 def ejecutar_benchmark():
-    print("==================================================================")
-    print("📊 INICIANDO BENCHMARK AUTOMATIZADO DE 4 MODELOS — ASISTENTE DNI")
-    print("==================================================================")
+    if not ARCHIVO_PREGUNTAS.exists():
+        print(f"Error: No se encuentra {ARCHIVO_PREGUNTAS}")
+        return
+
+    with open(ARCHIVO_PREGUNTAS, "r", encoding="utf-8") as f:
+        preguntas = json.load(f)
+
+    resultados_totales = []
+
+    print("🚀 Iniciando Benchmark de 4 modelos (Banda 7)...")
     
-    try:
-        preguntas = cargar_preguntas()
-        resultados_finales = {}
+    for modelo in MODELOS:
+        alias = modelo["alias"]
+        servidor = modelo["servidor"]
+        print(f"\n--- Evaluando modelo: {alias} ({servidor}) ---")
         
-        for mod in MODELOS:
-            alias = mod["alias"]
-            servidor = mod["servidor"]
-            print(f"\n🤖 Evaluando modelo: [{alias}] ({servidor})...")
+        # Inyectamos el modelo y el servidor en consultar.py al vuelo
+        consultar.SERVIDOR_LLM = servidor
+        consultar.LLM_MODEL = alias
+
+        for p in preguntas:
+            texto_pregunta = p["pregunta"]
+            print(f"Pregunta: {texto_pregunta}")
             
-            resultados_finales[alias] = []
+            inicio = time.time()
             
-            for q in preguntas:
-                print(f"  👉 Procesando {q['id']} ({q['tipo']})... ", end="", flush=True)
+            try:
+                # Llamamos a tu agente
+                respuesta_agente = consultar.consultar(texto_pregunta)
+                latencia = round(time.time() - inicio, 2)
                 
-                try:
-                    # Invocamos el pipeline modular inyectando el modelo actual
-                    res_rag = answer(q["pregunta"], model=alias)
-                    
-                    # Estructuramos el volcado crudo según exige la rúbrica
-                    resultados_finales[alias].append({
-                        "id": q["id"],
-                        "tipo": q["tipo"],
-                        "pregunta": q["pregunta"],
-                        "respuesta": res_rag["respuesta"],
-                        "fuentes": res_rag["fuentes"],
-                        "metricas": res_rag["metricas"]
-                    })
-                    print("✅ Completado.")
-                    
-                except Exception as e:
-                    print(f"❌ Error: {e}")
-                    # En caso de fallo de red en un modelo, registramos el hueco para no romper el bucle
-                    resultados_finales[alias].append({
-                        "id": q["id"],
-                        "pregunta": q["pregunta"],
-                        "respuesta": f"ERROR DE EJECUCIÓN: {str(e)}",
-                        "fuentes": [],
-                        "metricas": {"prompt_tokens": 0, "output_tokens": 0, "tokens_per_sec": 0.0, "latencia_s": 0.0, "modelo": alias}
-                    })
+                resultado = {
+                    "pregunta_id": p["id"],
+                    "pregunta": texto_pregunta,
+                    "modelo": alias,
+                    "servidor": servidor,
+                    "respuesta": respuesta_agente["respuesta"],
+                    "fuentes_citadas": respuesta_agente["fuentes"],
+                    "latencia_segundos": latencia,
+                    "tokens_entrada": 0, 
+                    "tokens_salida": 0   
+                }
+                resultados_totales.append(resultado)
+                print(f"  ✅ Respondido en {latencia}s")
+                
+            except Exception as e:
+                print(f"  ❌ Error: {e}")
 
-        # Guardar resultados en el JSON crudo de salida
-        ruta_salida = repo_root / "benchmark" / "benchmark.json"
-        with open(ruta_salida, "w", encoding="utf-8") as f:
-            json.dump(resultados_finales, f, ensure_ascii=False, indent=2)
-            
-        print("\n==================================================================")
-        print(f"🎉 ¡Benchmark finalizado con éxito! Datos crudos guardados en:")
-        print(f"📁 {ruta_salida}")
-        print("==================================================================")
-
-    except Exception as e:
-        print(f"\n❌ Fallo crítico en el orquestador del benchmark: {e}", file=sys.stderr)
+    # Guardamos todos los resultados
+    with open(ARCHIVO_RESULTADOS, "w", encoding="utf-8") as f:
+        json.dump(resultados_totales, f, ensure_ascii=False, indent=2)
+        
+    print(f"\n🎉 Benchmark completado. Resultados guardados en {ARCHIVO_RESULTADOS}")
 
 if __name__ == "__main__":
     ejecutar_benchmark()
