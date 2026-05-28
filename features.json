@@ -1,5 +1,5 @@
 {
-  "_": "Plantilla declarativa que el corrector lee primero. Marca true SOLO lo implementado de verdad. Declarar true sin implementar es trampa y penaliza (ver enunciado §9). Este repo-ejemplo declara las bandas que sí implementa: 5, 6 y 7.",
+  "_": "Plantilla declarativa que el corrector lee primero. Marca true SOLO lo implementado de verdad. Declarar true sin implementar es trampa y penaliza (ver enunciado §9).",
   "interfaz": "modulo_python",
   "modulo": "consultar.py",
   "endpoint_http": null,
