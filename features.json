@@ -17,10 +17,10 @@
     "huggingface": false
   },
   "modelos_evaluados_en_benchmark": [
+    {"alias": "gemma3:4b", "servidor": "ollama_local"},
     {"alias": "llama3.2:3b", "servidor": "ollama_local"},
-    {"alias": "qwen2.5:3b", "servidor": "ollama_local"},
-    {"alias": "gemma3:4b", "servidor": "poligpt"},
-    {"alias": "mini-cpm", "servidor": "poligpt"}
+    {"alias": "poligpt", "servidor": "poligpt"},
+    {"alias": "gemma3:27b", "servidor": "poligpt"} 
   ],
   "ollama_local_obligatorio": true,
   "verify_ssl_upv": false
